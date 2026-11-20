@@ -129,16 +129,7 @@ xychart-beta
 
 ## 6. The solution
 
-```mermaid
-flowchart TD
-    IN["Source 1 · Sources 2+3"] --> P["① Preprocess<br/>transliterate · expand abbreviations · strip legal forms<br/>consonant skeletons · house-number keys"]
-    P --> C["② Candidates, per country<br/>IDF keys → fuzzy re-rank (top 20) + rescue<br/>+ e5 neighbours (5) + fine-tuned retriever (10) + rare-name rule"]
-    C --> F["③ ~53 features → LightGBM<br/>fuzzy scores · TF-IDF · house no. · postcode · name rarity · e5 · small cross-encoder"]
-    F -->|"uncertain pairs (0.02–0.98)"| R["④ Cross-encoder re-ranker + stacking<br/>US/India: e5-base ×2 · France: 2 French self-trained models"]
-    F -->|confident pairs| D
-    R --> D["⑤ Decide<br/>one owner per record · US/India t = 0.58 + ambiguity rule<br/>France t = 0.91 + look-alike rules"]
-    D --> O["matching_results.tsv · candidate_pairs.tsv"]
-```
+<p align="center"><img src="docs/assets/solution-architecture.svg" alt="Solution architecture: inputs (Source 1, 1.73 M businesses; Sources 2+3, 9.97 M records) → 1 Preprocess → 2 Shortlist (43.9 M pairs, 99.2 % recall) → 3 Judge with LightGBM → 4 Re-read uncertain pairs with cross-encoders, separate US/India and France paths → 5 Decide with per-country thresholds" width="100%"></p>
 
 - **Robust text cleaning:** 9 Indian scripts, a dictionary mined from training pairs, digit-for-letter typos and French
   conventions, using only the Python standard library.

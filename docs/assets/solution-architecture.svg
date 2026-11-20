@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2240 980" width="2240" height="980" role="img" aria-label="Solution architecture: preprocess, candidate generation, LightGBM matcher, cross-encoder re-ranking with a separate France path, and the decision layer">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#588B8B"/></marker><marker id="arc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#C8553D"/></marker><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#234646" flood-opacity="0.10"/></filter></defs>
+<rect x="0" y="0" width="2240" height="980" rx="28" fill="#FFFCFA"/>
+<text x="60" y="78" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#1E3535">Solution architecture</text>
+<text x="60" y="118" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" fill="#5A7373">Shortlist → judge → re-read the uncertain → decide · per country, no external data</text>
+<rect x="60" y="142" width="848" height="6" fill="#234646"/>
+<rect x="908" y="142" width="424" height="6" fill="#588B8B"/>
+<rect x="1332" y="142" width="424" height="6" fill="#F28F3B"/>
+<rect x="1756" y="142" width="424" height="6" fill="#C8553D"/>
+<g filter="url(#sh)"><rect x="60" y="200" width="250" height="440" rx="20" fill="#FFFFFF" stroke="#E3EDED" stroke-width="2"/></g>
+<rect x="60" y="200" width="250" height="10" rx="5" fill="#FFD5C2"/>
+<text x="88" y="256" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#1E3535">Inputs</text>
+<text x="88" y="302" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1E3535">Source 1</text>
+<text x="88" y="334" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">1.73 M businesses</text>
+<text x="88" y="366" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">clean reference</text>
+<text x="88" y="398" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373"></text>
+<text x="88" y="430" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1E3535">Sources 2 + 3</text>
+<text x="88" y="462" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">9.97 M noisy</text>
+<text x="88" y="494" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">records</text>
+<text x="88" y="526" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373"></text>
+<text x="88" y="558" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">US · India · France</text>
+<g filter="url(#sh)"><rect x="350" y="200" width="290" height="440" rx="20" fill="#FFFFFF" stroke="#E3EDED" stroke-width="2"/></g>
+<rect x="350" y="200" width="290" height="10" rx="5" fill="#234646"/>
+<circle cx="386" cy="247" r="20" fill="#234646"/>
+<text x="386" y="255" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">1</text>
+<text x="418" y="256" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#1E3535">Preprocess</text>
+<text x="378" y="302" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">Transliterate</text>
+<text x="378" y="334" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">9 Indic scripts</text>
+<text x="378" y="366" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">Mined script</text>
+<text x="378" y="398" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">dictionary (5,484)</text>
+<text x="378" y="430" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">Expand abbreviations</text>
+<text x="378" y="462" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">Strip legal forms</text>
+<text x="378" y="494" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">Consonant skeletons</text>
+<text x="378" y="526" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">House-number keys</text>
+<g filter="url(#sh)"><rect x="680" y="200" width="340" height="440" rx="20" fill="#FFFFFF" stroke="#E3EDED" stroke-width="2"/></g>
+<rect x="680" y="200" width="340" height="10" rx="5" fill="#588B8B"/>
+<circle cx="716" cy="247" r="20" fill="#588B8B"/>
+<text x="716" y="255" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">2</text>
+<text x="748" y="256" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#1E3535">Shortlist</text>
+<text x="708" y="302" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">IDF keys → pool of 1,500</text>
+<text x="708" y="334" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">→ fuzzy re-rank, keep top 20</text>
+<text x="708" y="366" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">+ rescue rule</text>
+<text x="708" y="398" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">+ e5 neighbours (top 5)</text>
+<text x="708" y="430" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">+ tuned retriever (top 10)</text>
+<text x="708" y="462" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">+ rare-name rule</text>
+<text x="708" y="494" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373"></text>
+<text x="708" y="526" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1E3535">43.9 M pairs, ~25 each</text>
+<text x="708" y="558" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1E3535">99.2 % candidate recall</text>
+<g filter="url(#sh)"><rect x="1060" y="200" width="330" height="440" rx="20" fill="#FFFFFF" stroke="#E3EDED" stroke-width="2"/></g>
+<rect x="1060" y="200" width="330" height="10" rx="5" fill="#F28F3B"/>
+<circle cx="1096" cy="247" r="20" fill="#F28F3B"/>
+<text x="1096" y="255" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1E3535">3</text>
+<text x="1128" y="256" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#1E3535">Judge</text>
+<text x="1088" y="302" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">~53 features per pair</text>
+<text x="1088" y="334" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">fuzzy · TF-IDF · postcode</text>
+<text x="1088" y="366" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">house no. · name rarity</text>
+<text x="1088" y="398" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">e5 cosines · small CE</text>
+<text x="1088" y="430" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373"></text>
+<text x="1088" y="462" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">LightGBM, Optuna-tuned</text>
+<text x="1088" y="494" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">5-fold GroupKFold</text>
+<text x="1088" y="526" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">3 seeds averaged</text>
+<text x="1088" y="558" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1E3535">→ probability 0–1</text>
+<g filter="url(#sh)"><rect x="1490" y="200" width="360" height="205" rx="20" fill="#FFFFFF" stroke="#E3EDED" stroke-width="2"/></g>
+<rect x="1490" y="200" width="360" height="10" rx="5" fill="#588B8B"/>
+<circle cx="1526" cy="247" r="20" fill="#588B8B"/>
+<text x="1526" y="255" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">4</text>
+<text x="1558" y="256" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#1E3535">Re-read · US / India</text>
+<text x="1518" y="302" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">e5-base cross-encoder ×2</text>
+<text x="1518" y="334" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">out-of-fold halves</text>
+<text x="1518" y="366" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">+ stacking meta-model</text>
+<g filter="url(#sh)"><rect x="1490" y="435" width="360" height="205" rx="20" fill="#FFFFFF" stroke="#E3EDED" stroke-width="2"/></g>
+<rect x="1490" y="435" width="360" height="10" rx="5" fill="#C8553D"/>
+<circle cx="1526" cy="482" r="20" fill="#C8553D"/>
+<text x="1526" y="490" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">4</text>
+<text x="1558" y="491" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#1E3535">Re-read · France</text>
+<text x="1518" y="537" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">2 French cross-encoders</text>
+<text x="1518" y="569" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">self-trained on unlabelled</text>
+<text x="1518" y="601" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#5A7373">French text + look-alikes</text>
+<g filter="url(#sh)"><rect x="1910" y="200" width="270" height="440" rx="20" fill="#234646" stroke="none" stroke-width="2"/></g>
+<circle cx="1946" cy="247" r="20" fill="#FFD5C2"/>
+<text x="1946" y="255" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1E3535">5</text>
+<text x="1978" y="256" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFCFA">Decide</text>
+<text x="1938" y="302" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5">One owner per record</text>
+<text x="1938" y="334" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5"></text>
+<text x="1938" y="366" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFCFA">US / India</text>
+<text x="1938" y="398" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5">t = 0.58</text>
+<text x="1938" y="430" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5">+ ambiguity rule</text>
+<text x="1938" y="462" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5"></text>
+<text x="1938" y="494" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFCFA">France</text>
+<text x="1938" y="526" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5">t = 0.91</text>
+<text x="1938" y="558" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20"  fill="#D6E5E5">+ look-alike rules</text>
+<path d="M310,420.0 L346,420.0" stroke="#588B8B" stroke-width="4" fill="none" marker-end="url(#ar)" />
+<path d="M640,420.0 L676,420.0" stroke="#588B8B" stroke-width="4" fill="none" marker-end="url(#ar)" />
+<path d="M1020,420.0 L1056,420.0" stroke="#588B8B" stroke-width="4" fill="none" marker-end="url(#ar)" />
+<path d="M1390,350 L1486,302" stroke="#588B8B" stroke-width="4" fill="none" marker-end="url(#ar)" />
+<path d="M1390,490 L1486,537" stroke="#C8553D" stroke-width="4" fill="none" marker-end="url(#arc)" />
+<text x="1440" y="414" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#5A7373">uncertain</text>
+<text x="1440" y="436" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#5A7373">0.02–0.98</text>
+<path d="M1850,302 L1906,350" stroke="#588B8B" stroke-width="4" fill="none" marker-end="url(#ar)" />
+<path d="M1850,537 L1906,490" stroke="#C8553D" stroke-width="4" fill="none" marker-end="url(#arc)" />
+<path d="M1225,640 C1225,710 2045,710 2045,644" stroke="#588B8B" stroke-width="4" fill="none" stroke-dasharray="10 8" marker-end="url(#ar)"/>
+<text x="1635" y="732" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#5A7373">confident pairs keep their LightGBM score (about 42 M of 43.9 M skip the transformer)</text>
+<rect x="60" y="790" width="2120" height="130" rx="22" fill="#EEF4F4"/>
+<text x="272" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#234646">0.9867</text>
+<text x="272" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">public leaderboard · Top 500</text>
+<text x="696" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#2F5E5E">0.98921</text>
+<text x="696" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">cross-validated, US + India</text>
+<line x1="484" y1="818" x2="484" y2="892" stroke="#D6E5E5" stroke-width="2"/>
+<text x="1120" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#588B8B">99.2 %</text>
+<text x="1120" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">candidate recall</text>
+<line x1="908" y1="818" x2="908" y2="892" stroke="#D6E5E5" stroke-width="2"/>
+<text x="1544" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#C8553D">0.9897 | 0.9673</text>
+<text x="1544" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">US + India | France</text>
+<line x1="1332" y1="818" x2="1332" y2="892" stroke="#D6E5E5" stroke-width="2"/>
+<text x="1968" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#1E3535">MIT · ≤ 278 M</text>
+<text x="1968" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">all models (limit 8 B)</text>
+<line x1="1756" y1="818" x2="1756" y2="892" stroke="#D6E5E5" stroke-width="2"/>
+<text x="2180" y="956" text-anchor="end" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" fill="#5A7373">Amazon ML Challenge 2026 · Team Amizon</text>
+</svg>

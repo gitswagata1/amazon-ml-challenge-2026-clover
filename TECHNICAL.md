@@ -33,41 +33,7 @@ and `WORKBOARD.md`.
 
 The system has five stages. Each stage turns its input into something smaller and more certain, like a funnel.
 
-```mermaid
-flowchart TD
-    subgraph INP["Input: 3 sources, 3 countries"]
-        S1["Source 1<br/>1.73 M businesses<br/>(clean reference)"]
-        S23["Sources 2 + 3<br/>9.97 M noisy records"]
-    end
-    S1 --> PREP
-    S23 --> PREP
-    PREP["① Preprocessing · prep.py<br/>transliterate Indic scripts · expand abbreviations<br/>strip legal forms · consonant skeletons · house-number keys"]
-    PREP --> BLOCK
-    subgraph CG["② Candidate generation (blocking) · per country"]
-        BLOCK["IDF-weighted keys<br/>pool 1,500 → fuzzy re-rank → top 20"]
-        KNN1["e5-small embeddings<br/>nearest 5"]
-        KNN2["Fine-tuned dense retriever<br/>nearest 10"]
-        RULES["Rescue rule +<br/>rare-name / empty-address rule"]
-    end
-    PREP --> KNN1
-    PREP --> KNN2
-    BLOCK --> UNION
-    KNN1 --> UNION
-    KNN2 --> UNION
-    RULES --> UNION
-    UNION["~25 candidates per business · 43.9 M pairs · 99.2 % recall"]
-    UNION --> FEAT["③ ~53 pair features · features.py<br/>fuzzy string scores · TF-IDF · postcode · house number<br/>name rarity · e5 cosines · small cross-encoder score"]
-    FEAT --> LGB["LightGBM matcher<br/>Optuna-tuned · 5-fold GroupKFold · 3 seeds"]
-    LGB -->|"probability 0.02 – 0.98<br/>(~1.5 M uncertain pairs)"| SPLIT{Country?}
-    LGB -->|"confident pairs keep<br/>their score"| DEC
-    SPLIT -->|US / India| CE["④ e5-base cross-encoder re-ranker<br/>(2 out-of-fold halves)"]
-    SPLIT -->|France| FRCE["④ 2 French-adapted cross-encoders<br/>self-trained on unlabelled French test text"]
-    CE --> STACK["LightGBM stacking meta-model"]
-    FRCE --> STACK
-    STACK --> DEC
-    DEC["⑤ Decision layer · decide.py, france.py<br/>one-to-one assignment<br/>US/India: t = 0.58 + ambiguity rejection<br/>France: t = 0.91 + look-alike rules + noise-word recovery"]
-    DEC --> OUT["matching_results.tsv<br/>candidate_pairs.tsv"]
-```
+<p align="center"><img src="docs/assets/solution-architecture.svg" alt="Solution architecture: inputs (Source 1, 1.73 M businesses; Sources 2+3, 9.97 M records) → 1 Preprocess → 2 Shortlist (43.9 M pairs, 99.2 % recall) → 3 Judge with LightGBM → 4 Re-read uncertain pairs with cross-encoders, separate US/India and France paths → 5 Decide with per-country thresholds" width="100%"></p>
 
 ### Data flow: which file feeds which
 

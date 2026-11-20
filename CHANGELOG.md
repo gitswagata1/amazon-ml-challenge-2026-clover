@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-20 · New solution diagram
+
+- README §6 and TECHNICAL §0: the auto-laid-out Mermaid architecture chart is replaced by a custom SVG
+  (`docs/assets/solution-architecture.svg`) in the project palette. It has numbered stage cards, separate US/India and
+  France re-read lanes, the confident-pair bypass, and a results ribbon. Text was checked to fit in Inter, Helvetica,
+  Arial and DejaVu Sans, so it renders cleanly on any operating system.
+
 ## 2026-11-20 · Deck style pass
 
 - Dark deep-teal cover with silk and orange accents; a four-colour accent bar on every slide.

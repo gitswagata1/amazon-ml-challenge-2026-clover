@@ -1,0 +1,6 @@
+[submodule "code"]
+	path = code
+	url = https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026.git
+[submodule "research"]
+	path = research
+	url = https://github.com/Martial-Gautam/Amizon.git

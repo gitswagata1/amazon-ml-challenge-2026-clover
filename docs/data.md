@@ -1,4 +1,4 @@
-# 02 · The data
+# The data
 
 ## What we were given
 
@@ -71,7 +71,7 @@ back to a fact found in the data.
 > **Lesson for beginners.** Notice the "noise copies" vs "decoys" finding. The dataset was *synthetic*: a generator
 > created noisy copies of real businesses and deliberately planted look-alike traps. Spotting the generator's habits is
 > legitimate and very powerful. A big part of the France solution literally imitates the generator to create training
-> examples (chapter 06).
+> examples ([TECHNICAL §4](../TECHNICAL.md#4-france-domain-adaptation-without-labels)).
 
 ### The native-script dictionary
 
@@ -97,7 +97,7 @@ in reality. In this data:
 - **Pairs of the same business across folds.** If some candidates of business X are in training and others in
   validation, the model has effectively seen X. Fix: group folds by Source 1 business (*GroupKFold*).
 - **Neural features trained on the same businesses.** A cross-encoder trained on business X will give X's pairs
-  overconfident scores. Fix: train neural models on businesses that the main model never sees (chapter 04).
+  overconfident scores. Fix: train neural models on businesses that the main model never sees ([TECHNICAL §2](../TECHNICAL.md#2-the-pipeline-stage-by-stage)).
 - **Statistics fitted on test text** such as TF-IDF vocabularies or rarity counts. These are label-free, so they are
   allowed, and the team confirmed with the organisers that using unlabelled test text for France was allowed.
 
@@ -122,8 +122,6 @@ Distribution of predicted copies per business:
 **How to read this.** In training, the truth was 3.46 copies per business and 5.58 % singletons. We predict a little
 fewer copies (3.35) and a few more empty rows (5.81 %). That is exactly what a precision-first strategy should look
 like: when unsure, leave it out. The ~0.2 % extra empty rows are mostly French businesses where we could not find the
-copies (French recall ≈ 0.90, chapter 06).
+copies (French recall ≈ 0.90, [TECHNICAL §4](../TECHNICAL.md#4-france-domain-adaptation-without-labels)).
 
 *Country-level breakdown of this file needs the test source files and is `[not in the files]`.*
-
-Next: [03 · How to think about it →](03-thinking.md)

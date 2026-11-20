@@ -1,4 +1,4 @@
-# 13 · Code walkthrough
+# Code walkthrough
 
 A map of the code: what each file does, its key functions, and how the pieces connect. Links point to commit
 [`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c)
@@ -88,7 +88,7 @@ Run one stage: `python code/business_entity_resolution/reproduce.py --stage v9`.
 
 ### `features.py`, `embed.py`, `ce.py`, `ce_data.py`
 
-See chapter 04 (stage 3) and chapter 05. Note `ce.py`'s throughput tricks and `ce_data.ce_half`, the fixed hash that
+See [TECHNICAL §2](../TECHNICAL.md#2-the-pipeline-stage-by-stage) (stage 3) and [TECHNICAL §3](../TECHNICAL.md#3-the-models). Note `ce.py`'s throughput tricks and `ce_data.ce_half`, the fixed hash that
 defines the two out-of-fold halves for every machine.
 
 ### `pipeline/` modules
@@ -141,5 +141,3 @@ python utils/validate_submission.py --matching output/matching_results.tsv \
 Without the data or a GPU, you can still:
 - run `python code/business_entity_resolution/src/prep.py` (the normalisation self-test, CPU only), and
 - run everything in `examples/` at the repo root.
-
-Next: [14 · Learning track and exercises →](14-learning-track.md)

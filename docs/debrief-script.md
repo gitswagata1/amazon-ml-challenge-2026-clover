@@ -1,4 +1,4 @@
-# 12 · 10-minute team debrief script
+# 10-minute team debrief script
 
 A spoken walkthrough for presenting the project to the group. The timings add up to about 10 minutes. Text in *italics*
 is a suggestion for what to show on screen.
@@ -13,7 +13,7 @@ where we lost points."
 
 ### 0:30 · The problem (1 min 30 s)
 
-*Show the Sharma Traders table from chapter 01.*
+*Show the Sharma Traders table from [the problem guide](problem.md).*
 
 "Amazon gave us business records from three sources. Source 1 is a clean list of about 1.7 million businesses. Sources 2
 and 3 have about 10 million messy records of the same businesses: abbreviations, typos, Hindi or Tamil script, missing
@@ -25,7 +25,7 @@ training. No French examples at all."
 
 ### 2:00 · The big idea: shortlist, then judge (1 min 30 s)
 
-*Show the three-box funnel diagram from chapter 03.*
+*Show the three-box funnel diagram from [TECHNICAL §1](../TECHNICAL.md#1-how-to-think-about-the-problem).*
 
 "You can't compare 1.7 million businesses with 10 million records. That's 17 trillion comparisons. So every solution
 does two things. First, a cheap shortlist: for each business, find about 25 records that might match. That's called

@@ -1,4 +1,4 @@
-# 01 · The problem in plain English
+# The problem in plain English
 
 ## The one-sentence version
 
@@ -96,7 +96,5 @@ F0.5 = 0.714.
 | **Models must be MIT or Apache 2.0 licensed and ≤ 8 B parameters** | We used `multilingual-e5-small` (118 M) and `-base` (278 M), both MIT, and LightGBM (MIT) |
 | **72-hour challenge window** (25–27 Sept 2026) | Every experiment had to be cheap to re-run, hence heavy caching |
 | Every test Source 1 record gets exactly one row, with no duplicates and only S2/S3 IDs | A validator script (`utils/validate_submission.py`) was run before every upload |
-| Public leaderboard uses part of the test set; final ranking uses the private remainder | Tuning too hard against the public score is risky (see chapter 07) |
+| Public leaderboard uses part of the test set; final ranking uses the private remainder | Tuning too hard against the public score is risky (see [the journey](journey.md)) |
 | Final package includes code that reproduces both files | Hence `reproduce.py` |
-
-Next: [02 · The data →](02-data.md)

@@ -1,4 +1,4 @@
-# 10 · Lessons for the next ML hackathon
+# Lessons for the next ML hackathon
 
 A checklist distilled from what worked and what hurt. Most of it applies to any ML competition, not just entity resolution.
 
@@ -50,5 +50,3 @@ A checklist distilled from what worked and what hurt. Most of it applies to any 
 - [ ] **Log every upload** with its tag, change and score.
 - [ ] **Write a manual runbook** for when the person or assistant who knows the pipeline isn't available.
 - [ ] **Decide the final pick by CV** where CV is trustworthy, and use the public leaderboard only for what CV can't see.
-
-Next: [11 · Glossary →](11-glossary.md)

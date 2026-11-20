@@ -1,4 +1,4 @@
-# 00 · Start here
+# Start here
 
 This repository is a complete, real machine-learning project, documented so that someone who has never trained a model
 can follow it from the first line of data to the final submission, and so that someone experienced can audit every
@@ -8,10 +8,10 @@ decision.
 
 | You are… | Read this path |
 |---|---|
-| **New to ML** (you can read a bit of Python) | 01 → 03 → run `examples/` → 04 → 05 → 11 (glossary, any time) → 14 |
-| **A teammate who wasn't in the code** | 01 → 03 → 04 → 07 → 08 → 12 (the debrief script) |
-| **An ML engineer / reviewer** | README → 04 → 05 → 06 → 07 → 09 → 13 |
-| **Presenting this to a group** | 12, then pick slides from 01, 03, 04 and 07 |
+| **New to ML** (you can read a bit of Python) | [problem](problem.md) → run [`examples/`](../examples) → [TECHNICAL §0–2](../TECHNICAL.md) → [learning track](learning-track.md) · [glossary](../TECHNICAL.md#9-glossary) any time |
+| **A teammate who wasn't in the code** | [problem](problem.md) → [journey](journey.md) → [TECHNICAL §0–2, §7](../TECHNICAL.md) → [debrief script](debrief-script.md) |
+| **An ML engineer / reviewer** | [README](../README.md) → [TECHNICAL](../TECHNICAL.md) (all of it) → [code walkthrough](code-walkthrough.md) |
+| **Presenting this to a group** | [debrief script](debrief-script.md), then diagrams from [TECHNICAL](../TECHNICAL.md) and the [journey](journey.md) |
 
 ## What you need to know before starting
 
@@ -29,7 +29,7 @@ and it helps to hold them in your head from the start:
 
 ## Hands-on first (recommended)
 
-Reading about ML is like reading about swimming. Run these two files before chapter 04:
+Reading about ML is like reading about swimming. Run these two files before [TECHNICAL §2](../TECHNICAL.md#2-the-pipeline-stage-by-stage):
 
 ```bash
 pip install numpy scikit-learn
@@ -64,7 +64,5 @@ and transformers on top.
   ([`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c)),
   so they never go stale.
 - **Facts vs opinion.** Every score and setting comes from the code or the team's documentation. Where we give an
-  opinion (mostly chapter 09), it is labelled.
-- **`[not in the files]`** marks anything we could not verify. Chapter 15 collects these.
-
-Next: [01 · The problem in plain English →](01-problem.md)
+  opinion (mostly [TECHNICAL §8](../TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)), it is labelled.
+- **`[not in the files]`** marks anything we could not verify. [the open questions](open-questions.md) collects these.

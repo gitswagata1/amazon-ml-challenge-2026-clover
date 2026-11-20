@@ -1,4 +1,4 @@
-# 14 · Learning track and exercises
+# Learning track and exercises
 
 A hands-on path from "never trained a model" to "could have contributed to this solution". Each level builds on the last.
 Levels 1–3 need only a laptop. Answers to the "predict first" questions are at the bottom.
@@ -36,7 +36,7 @@ File: `examples/toy_entity_resolution.py`
 2. Compute by hand: `skel("enterprises")`, `skel("enterpires")`, `skel("marketing")`.
 3. Read `run.decide` (5 lines) and `run.f05`. Map them onto your toy pipeline.
 4. Read `blocking._rescore`. Why is a shared house number worth +40, and why is a missing address given 50?
-5. Read chapter 07's bug table. For each bug, decide which line of code fixed it.
+5. Read [the journey](journey.md)'s bug table. For each bug, decide which line of code fixed it.
 
 ## Level 4 · Models (1–2 days, a free Kaggle GPU helps)
 
@@ -53,8 +53,8 @@ File: `examples/toy_entity_resolution.py`
 
 ## Level 5 · Think like a competitor
 
-1. Write a one-page plan for the 2027 challenge using chapter 10's checklist, *before* you see the data.
-2. Pick one idea from chapter 09's table and design the experiment that would test it: data, metric, noise bar, and what
+1. Write a one-page plan for the 2027 challenge using [the lessons](lessons.md)'s checklist, *before* you see the data.
+2. Pick one idea from [TECHNICAL §8](../TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)'s table and design the experiment that would test it: data, metric, noise bar, and what
    result would make you adopt it.
 3. Read `research/SUBMISSIONS.md` top to bottom. For three rejected ideas, explain in your own words *why* they failed.
 

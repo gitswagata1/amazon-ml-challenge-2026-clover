@@ -1,8 +1,42 @@
-# 07 · Bottlenecks and failures
+# The journey: ups, downs and what we learned
 
-This chapter is the honest one: what went wrong, how the team found out, and what fixed it (or didn't). Sources: the
+This is the honest part of the story: what went wrong, how the team found out, and what fixed it (or didn't). Sources: the
 working repo's [`WORKBOARD.md`](https://github.com/Martial-Gautam/Amizon/blob/main/WORKBOARD.md),
 [`SUBMISSIONS.md`](https://github.com/Martial-Gautam/Amizon/blob/main/SUBMISSIONS.md) and the commit history.
+
+## The 72 hours at a glance
+
+```mermaid
+timeline
+    title Amazon ML Challenge 2026 · Team Amizon (25–27 Sep, IST)
+    Day 1 · 25 Sep : v1 baseline, LB 0.852 (recall 81 %)
+                   : v2 pool + fuzzy re-rank, LB 0.919
+                   : v3 address keys, LB 0.936
+                   : LambdaRank re-ranker tried and reverted
+    Day 2 · 26 Sep : Optuna tuning (+0.0028) and k = 20 chosen
+                   : v7 small cross-encoder (+0.0077), LB 0.953, rank ~1,069
+                   : pseudo-labelling simulations rejected
+                   : v8 blocking C (recall 96.6 %), LB 0.9739
+                   : error analysis shows 56 % of loss = never-found matches
+                   : v9 built overnight (dictionary, rescue, neighbours, rarity)
+    Day 3 · 27 Sep : France probe, look-alike rule (+0.0075 on France)
+                   : out-of-memory crash, then a power cut, resumed from caches
+                   : French self-trained cross-encoder (+0.011 on France)
+                   : v10 fine-tuned retriever (recall 99.2 %), LB 0.9853
+                   : hybrid v10 US/India + v9 France, LB 0.9859
+                   : France threshold sweep, final LB 0.986691
+```
+
+| Version | What we tried | What went right ✅ | What went wrong ❌ | Lesson |
+|---|---|---|---|---|
+| v1 → v3 | keys, pool + fuzzy re-rank, address keys | LB 0.852 → 0.936 from blocking alone | LambdaRank re-ranker raised recall but lowered F0.5 | more candidates can mean harder negatives |
+| v4 – v7 | competition features, tuning, CatBoost, embeddings, small cross-encoder | cross-encoder +0.0077; Optuna +0.0028 | v4 features, CatBoost, blends: no gain | read the words, not just numbers about them |
+| v8 | bigger pool, address word-pair keys, all training data | recall 96.6 %, LB +0.021 | France ≈ 0.942, far below US/India | recall is the ceiling; find your unseen subgroup |
+| v8.1 | word TF-IDF | CV +0.0002 | −0.0017 on France (LB) | small CV gains can be real losses elsewhere |
+| v9 | dictionary, rescue, neighbours, rarity, re-ranker, French rules | CV 0.98693, LB 0.9839 | a self-deadlocking build script lost 70 min | wait on PIDs or done-files |
+| France probes | look-alike rules, French self-training | +0.0075 and +0.011 on France | plain pseudo-labelling had failed in simulation; e5-large hurt France | synthetic hard negatives beat pseudo-labels |
+| v10 | fine-tuned retriever, 3 seeds, threshold 0.58 | recall 99.2 %, CV 0.98921 | hurt France (−0.004); OOM crash; power cut; stale Kaggle data; GPU quota | cache everything; verify inputs; budget compute |
+| final | hybrid by country, French threshold 0.91, recovery rules | LB 0.986691; US/India 0.9897 | France 0.9673 remains the gap | plan for the unseen part from day 1 |
 
 ## 1. Where the error actually was (error decomposition)
 
@@ -139,5 +173,3 @@ All 29 public-leaderboard uploads (from `SUBMISSIONS.md`), condensed:
 | 26 | diagnostic: French rows emptied | 0.849872 → US/India 0.9897, France 0.9673 |
 | 27–29 | France threshold 0.93 / 0.88 / **0.91** | 0.986345 / 0.986335 / **0.986371** |
 | final | + noise-word recovery and confident-case reversals (final package README) | **0.986691** |
-
-Next: [08 · Key decisions and trade-offs →](08-decisions.md)

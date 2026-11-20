@@ -13,6 +13,9 @@
 ![Rank](https://img.shields.io/badge/rank-Top%20500-f59e0b)
 ![External data](https://img.shields.io/badge/external%20data-none-6b7280)
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb)
+[![examples](https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml/badge.svg)](https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml)
+
 | 🌱 I'm new to ML | 🔬 I want the technical detail | ▶️ I want to run it | 💼 I want the business view | 🎤 I want to present it |
 |:---:|:---:|:---:|:---:|:---:|
 | [Start here](docs/start-here.md) → [build it in 6 steps](docs/build-guide.md) | [TECHNICAL.md](TECHNICAL.md) | [5-second demo](#8-start-here) | [Why it matters](#2-why-it-matters) · [adapting it](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) | [Pitch deck](presentation/) (PDF · PowerPoint) |
@@ -173,7 +176,10 @@ look-alikes. → [TECHNICAL §8](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank
 
 ## 8. Start here
 
-**Run the whole idea in miniature, on any laptop, in about 5 seconds:**
+**No install:** open the 6-step notebook in Colab and run it top to bottom (about 15 seconds).
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb)
+
+**Or run the whole idea in miniature on any laptop, in about 5 seconds:**
 
 ```bash
 git clone https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
@@ -221,6 +227,8 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 ├── problem-statement/           ← the official Amazon problem statement (PDF)
 ├── presentation/                ← 21-slide pitch deck: PDF + PowerPoint with speaker notes
 ├── examples/                    ← laptop-runnable: metric · mini pipeline · 6-step solution
+├── notebooks/                   ← the 6-step build guide as a Colab notebook (outputs included)
+├── .github/workflows/           ← CI: runs every example and the notebook on each push
 ├── code/      → submodule: Martial-Gautam/Amazon-ML-Challenge-2026 (final submission package)
 └── research/  → submodule: Martial-Gautam/Amizon (72-hour working repo: experiments, logs)
 ```
@@ -237,6 +245,11 @@ python code/business_entity_resolution/reproduce.py --data /path/to/student_reso
 **Tech stack:** Python 3.12 · Polars · NumPy · RapidFuzz · scikit-learn · LightGBM · Optuna · PyTorch · Hugging Face
 `transformers` 4.57.6 · `multilingual-e5-small` (118 M) and `-base` (278 M), MIT licensed · Kaggle T4/P100 GPUs and a
 32-core workstation.
+
+**My role.** I wrote this repository. I analysed the team's final code (`code/`) and its 72-hour working repo
+(`research/`), and turned them into the documentation, `TECHNICAL.md`, the 6-step build guide, the runnable examples
+and notebook, the diagrams and the pitch deck. I also checked every number against the team's logs and checked that
+every script runs. The competition pipeline itself is the team's work, credited below.
 
 **Credits.** Team Amizon. The competition code and methodology are by Ranveer Gautam
 ([`Martial-Gautam`](https://github.com/Martial-Gautam)), Satyam Kumar Pandey and Shreepal, as listed in the team's

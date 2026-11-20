@@ -1,0 +1,39 @@
+name: examples
+
+# Proves the learning material still runs: the metric, the mini pipeline, the 6-step solution and the notebook.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -r examples/requirements.txt nbclient nbformat ipykernel
+      - name: Metric examples
+        run: python examples/f05_metric.py
+      - name: Mini pipeline (expects macro F0.5 0.9361)
+        run: |
+          python examples/toy_entity_resolution.py | tee toy.txt
+          grep -q "macro F0.5 0.9361" toy.txt
+      - name: Build from scratch, 6 steps
+        run: python examples/build_from_scratch.py
+      - name: Notebook runs top to bottom
+        run: |
+          python - <<'PY'
+          import nbformat, nbclient
+          nb = nbformat.read("notebooks/build_from_scratch.ipynb", 4)
+          nbclient.NotebookClient(nb, timeout=300, kernel_name="python3", resources={"metadata": {"path": "."}}).execute()
+          print("notebook OK")
+          PY

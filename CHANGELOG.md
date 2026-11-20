@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-20 · Run it anywhere, prove it runs
+
+- `notebooks/build_from_scratch.ipynb`: the 6-step build guide as a notebook, with an "Open in Colab" badge. In Colab
+  it clones the repo itself. Saved with outputs so GitHub shows the results. Tested from an empty folder.
+- `.github/workflows/examples.yml`: CI runs the metric, the mini pipeline (and checks its 0.9361 score), the 6-step
+  solution and the notebook on every push. A status badge is in the README.
+- `docs/assets/social-preview.png`: a 1280×640 social preview image for link sharing.
+- README: a "My role" statement that separates this repository's work from the team's competition pipeline.
+
 ## 2026-11-20 · Problem statement
 
 - Added the official problem statement PDF in `problem-statement/`, unchanged and credited to the organisers. Linked

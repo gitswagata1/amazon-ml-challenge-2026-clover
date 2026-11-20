@@ -1,5 +1,7 @@
 # Build it from scratch in 6 steps
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb) Prefer no install? The same six steps are in a [notebook](../notebooks/build_from_scratch.ipynb).
+
 This guide rebuilds the core of the competition solution on a laptop, one step at a time. Paste each step's code into
 **one** Python file, in order, and run it from the repo root after each step. The complete file is
 [`examples/build_from_scratch.py`](../examples/build_from_scratch.py) if you get stuck.

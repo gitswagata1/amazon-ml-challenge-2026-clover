@@ -18,3 +18,7 @@ appear.
 | 10 | **The challenge walkthrough video** | It was shared as a reference but not reviewed for these docs | The organisers' video |
 
 If you can fill any of these in, please open an issue or a pull request.
+
+---
+
+<sub>← [Debrief script](debrief-script.md) · [Home](../README.md)</sub>

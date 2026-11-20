@@ -67,5 +67,9 @@ File: `examples/toy_entity_resolution.py`
 - **Level 2, Q5:** CV usually goes **up** with plain KFold, because pairs of the same business sit in both training and
   validation. The model partly memorises businesses, so it looks better than it will be on new businesses. The higher
   number is optimistic, not better.
-- **Level 3, Q2:** `ntrprss` → after collapsing repeated letters, `ntrprs`; `enterpires` → `ntrprs`; `marketing` → `mrktng`.
+- **Level 3, Q2:** `enterprises` → remove vowels, `y` and `h` → `ntrprss` → merge the repeated `s` → **`ntrprs`**; `enterpires` → **`ntrprs`** (same skeleton, so the typo is absorbed); `marketing` → **`mrktng`**.
   Vowels and `y`/`h` are removed, then repeated consonants are merged.
+
+---
+
+<sub>← [Technical deep dive](../TECHNICAL.md) · [Home](../README.md) · [The journey](journey.md) →</sub>

@@ -297,7 +297,7 @@ into every key's hash, and the neighbour searches loop over countries. This way 
 flowchart TD
     subgraph K["Source A · Key blocking (blocking.py)"]
         K1["Keys per record:<br/>f: full sorted skeleton · b: token pairs<br/>t: long tokens · p: 6-char prefix<br/>x: token + house no. · h: house key<br/>g: first token + street · d: digit-drop variants<br/>a: address word pairs"]
-        K2["Weight each key by IDF<br/>w = log(N / df), drop keys with df > 10,000"]
+        K2["Weight each key by IDF<br/>w = log(N) − log(df), drop keys with df > 10,000"]
         K3["Sum shared-key weights →<br/>keep best 1,500 (the pool)"]
         K4["Fuzzy re-rank: name skeleton + address<br/>+ house-number bonus → keep top 20"]
         K1 --> K2 --> K3 --> K4
@@ -317,7 +317,9 @@ flowchart TD
 - Each record emits many short *keys* (`block_keys` in `prep.py` and `_keys` in `blocking.py`). Two records "meet" if
   they share a key.
 - **IDF weighting** (inverse document frequency) means rare keys count more. Sharing the key `t:zphyrn` (a rare word)
-  is strong evidence, while sharing `t:trdrs` ("traders") is weak. Keys used by more than 10,000 records are dropped
+  is strong evidence, while sharing `t:trdrs` ("traders") is weak. Precisely: a key's weight is
+  `w = log(N) − log(df)`, where `df` is how many candidate records carry the key and `N` is the total number of
+  (record, key) occurrences in that country (`blocking.block`). Keys used by more than 10,000 records are dropped
   entirely.
 - For each S1, sum the weights of shared keys, keep the best **1,500** (`--pool 1500`), then re-score those with cheap
   fuzzy similarity (`_rescore`: skeleton token-set ratio + address token-set + partial ratio + a +40 bonus for a shared
@@ -1217,6 +1219,7 @@ flowchart LR
 | Term | Meaning |
 |---|---|
 | **A/B test** | Run two versions (A = control, B = change) on the same data and compare scores; keep B only if it wins clearly. |
+| **Ambiguity rejection** | Dropping a match when a second business scores almost as high (≥ 0.5 and within 0.2), because the record sits between two look-alikes. |
 | **AUC** | Area under the ROC curve: the probability a model ranks a random true match above a random non-match (0.5 = guessing, 1.0 = perfect). |
 | **Bagging fraction** | Share of training rows each LightGBM tree sees; randomness that reduces overfitting. |
 | **Band (uncertainty band)** | Pairs with stage-1 probability between 0.02 and 0.98, the only ones the expensive re-ranker reads. |
@@ -1253,24 +1256,29 @@ flowchart LR
 | **Fine-tuning** | Continuing to train a pre-trained model on your own task data. |
 | **fp16 / mixed precision** | Using 16-bit numbers on the GPU for speed and memory, with safeguards for accuracy. |
 | **Fuzzy matching** | String similarity that tolerates typos and reordering (RapidFuzz `ratio`, `token_set_ratio`…). |
+| **Generator (data generator)** | The program that created the synthetic competition data; its habits (how noise copies and decoys were made) could be learned and imitated. |
 | **Gradient boosting** | Building many small decision trees in sequence, each correcting the previous ones' errors. |
 | **GroupKFold** | Cross-validation that keeps all rows of one group (here one S1 business) in the same fold. |
 | **Hard negative** | A non-match that looks very much like a match; the most useful kind of training example. |
+| **Hash** | A function that turns a string into a fixed-size number; used here to turn blocking keys into fast 64-bit integers. |
 | **Hyperparameter** | A setting chosen before training (learning rate, number of leaves, trees), not learned from data. |
-| **IDF (inverse document frequency)** | `log(N / df)`: rare tokens or keys get high weight, common ones low. |
-| **InfoNCE** | The contrastive loss: a softmax that asks the model to pick the true match out of a batch of candidates. |
+| **IDF (inverse document frequency)** | `log(N / df)`: a token or key that few records share (small `df`) gets a high weight, a common one a low weight. |
 | **In-batch negatives** | Using other examples in the same training batch as negatives, for free. |
+| **InfoNCE** | The contrastive loss: a softmax that asks the model to pick the true match out of a batch of candidates. |
 | **Jaccard similarity** | Shared items ÷ all items, for two sets of words. |
 | **Jaro-Winkler** | A string similarity that rewards matching prefixes; good for names. |
-| **k (top-k)** | How many candidates are kept per S1 (here 20 from keys). |
 | **kNN (nearest neighbours)** | Finding the k most similar vectors to a query. |
+| **k (top-k)** | How many candidates are kept per S1 (here 20 from keys). |
 | **L1 / L2 regularisation** | Penalties that keep a model simpler to reduce overfitting. |
 | **LambdaRank** | A learning-to-rank method; tried as a blocking re-ranker and rejected. |
-| **Leakage** | Answer information sneaking into training or validation, making scores look better than reality. |
 | **Leaderboard (public / private)** | The competition's scoring of part (public) or the rest (private, final) of the test set. |
+| **Leaf / number of leaves** | The end points of a decision tree; more leaves let each tree model finer patterns (LightGBM used 286). |
+| **Leakage** | Answer information sneaking into training or validation, making scores look better than reality. |
+| **Learning rate** | How big a step a model takes when it learns from its errors; small values learn slowly but more reliably. |
 | **LightGBM** | A fast gradient-boosted-tree library; our main matcher. |
-| **Logit** | `log(p / (1 − p))`: a probability stretched onto the whole number line; easier for models to combine. |
 | **LOCO** | Leave-one-country-out validation: train on one country, test on another, to simulate an unseen country. |
+| **Logit** | `log(p / (1 − p))`: a probability stretched onto the whole number line; easier for models to combine. |
+| **Look-alike** | A different business whose record closely resembles another's (often one word changed at a nearby address). |
 | **Macro average** | Compute the score per item (per S1), then average, so every item counts equally. |
 | **Mean pooling** | Averaging a transformer's per-token vectors into one vector for the text. |
 | **Meta-model / stacking** | A small model that learns how to combine other models' predictions. |
@@ -1281,13 +1289,19 @@ flowchart LR
 | **Overfitting** | Learning quirks of the training (or public leaderboard) data that don't hold elsewhere. |
 | **Parquet** | A compressed, column-based file format that allows reading only the needed columns or rows. |
 | **Polars** | A fast DataFrame library (like pandas) with lazy, streaming queries. |
+| **Pool** | The larger first list of candidates (1,500) kept before the cheap fuzzy re-rank cuts it to the top 20. |
 | **Precision** | Of the pairs we predicted, the share that are true. |
 | **Probe upload** | A leaderboard submission designed to measure one change (e.g. only French rows differ). |
 | **Pseudo-labelling / self-training** | Using a model's own confident predictions on unlabelled data as training labels. |
 | **Recall** | Of the true pairs, the share we found. |
 | **Re-ranking** | Re-scoring an existing shortlist with a better (more expensive) model. |
+| **Rescue rule** | Keeping a pair when this business is the candidate record's own best match, even if it fell outside this business's top 20. |
 | **Singleton** | A Source 1 business with no matches; scores 1.0 only if we predict nothing. |
+| **Softmax** | Turns a list of scores into probabilities that add up to 1; the core of the InfoNCE loss. |
+| **Stage 1 / stage 2** | Stage 1 = the LightGBM matcher's probability; stage 2 = the stacked score after the cross-encoder re-reads uncertain pairs. |
+| **Submodule** | A Git folder that points to another repository at a fixed commit; here `code/` and `research/`. |
 | **Synthetic data** | Artificially generated examples (here, French look-alikes mimicking the data generator). |
+| **Temperature** | A number that sharpens or softens a softmax; 0.05 in the retriever makes it focus hard on the closest candidates. |
 | **TF-IDF** | Vectors where each word or character trigram is weighted by frequency in the text × rarity overall. |
 | **Threshold** | The probability above which a pair is accepted as a match (0.58 US/India, 0.91 France). |
 | **Token** | A unit of text: a word, or for transformers a word-piece. |
@@ -1296,3 +1310,7 @@ flowchart LR
 | **Transliteration** | Writing one script in another's letters (राम → ram). |
 | **TSV** | Tab-separated values; like CSV but with tabs. |
 | **Validation set** | Data held out from training to measure performance honestly. |
+
+---
+
+<sub>← [Build it in 6 steps](docs/build-guide.md) · [Home](README.md) · [Learning track](docs/learning-track.md) →</sub>

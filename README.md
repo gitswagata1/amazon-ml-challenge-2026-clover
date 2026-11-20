@@ -13,9 +13,9 @@
 ![Rank](https://img.shields.io/badge/rank-Top%20500-f59e0b)
 ![External data](https://img.shields.io/badge/external%20data-none-6b7280)
 
-| 🌱 I'm new to ML | 🔬 I want the technical detail | ▶️ I want to run it | 💼 I want the business view |
-|:---:|:---:|:---:|:---:|
-| [Start here](docs/start-here.md) → [build it in 6 steps](docs/build-guide.md) | [TECHNICAL.md](TECHNICAL.md) | [5-second demo](#8-start-here) | [Why it matters](#2-why-it-matters) · [adapting it](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) |
+| 🌱 I'm new to ML | 🔬 I want the technical detail | ▶️ I want to run it | 💼 I want the business view | 🎤 I want to present it |
+|:---:|:---:|:---:|:---:|:---:|
+| [Start here](docs/start-here.md) → [build it in 6 steps](docs/build-guide.md) | [TECHNICAL.md](TECHNICAL.md) | [5-second demo](#8-start-here) | [Why it matters](#2-why-it-matters) · [adapting it](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) | [Pitch deck](presentation/) (PDF · PowerPoint) |
 
 </div>
 
@@ -205,6 +205,7 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 | 🌱 **New to ML** | [start here](docs/start-here.md) → [the problem](docs/problem.md) → [build it in 6 steps](docs/build-guide.md) → [TECHNICAL §0–3](TECHNICAL.md) → [exercises](docs/learning-track.md) |
 | 👥 **A teammate presenting it** | [the problem](docs/problem.md) → [journey](docs/journey.md) → [TECHNICAL §0–2, §7](TECHNICAL.md) → [10-minute debrief script](docs/debrief-script.md) |
 | 🔬 **ML engineer or recruiter** | this README → [TECHNICAL.md](TECHNICAL.md) → [code walkthrough](docs/code-walkthrough.md) |
+| 🎤 **Pitching it** (faculty, guide, class) | [the 21-slide deck](presentation/) with speaker notes → [debrief script](docs/debrief-script.md) |
 | 💼 **Business or product** | [§2 why it matters](#2-why-it-matters) → [§7 results](#7-results-and-impact) → [TECHNICAL §9: adapting it to your data](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) |
 
 ---
@@ -226,6 +227,7 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 │   ├── code-walkthrough.md      ← file-by-file, function-by-function map of the real code
 │   ├── debrief-script.md        ← 10-minute talk + likely questions
 │   └── open-questions.md        ← what isn't in the files yet
+├── presentation/                ← 21-slide pitch deck: PDF + PowerPoint with speaker notes
 ├── examples/                    ← laptop-runnable: metric · mini pipeline · 6-step solution
 ├── code/      → submodule: Martial-Gautam/Amazon-ML-Challenge-2026 (final submission package)
 └── research/  → submodule: Martial-Gautam/Amizon (72-hour working repo: experiments, logs)
@@ -253,5 +255,7 @@ Their code is **linked, not copied**:
 examples are by Swagata Banerjee ([`gitswagata1`](https://github.com/gitswagata1)). Every number comes from the team's
 files. Anything unverified is marked `[not in the files]` and listed in [open questions](docs/open-questions.md). The
 competition dataset belongs to Amazon and is not included.
+
+**Changes:** see [CHANGELOG.md](CHANGELOG.md).
 
 **Licence:** [MIT](LICENSE), covering the docs and examples in this repository only.

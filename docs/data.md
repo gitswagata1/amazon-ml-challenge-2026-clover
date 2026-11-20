@@ -121,7 +121,12 @@ Distribution of predicted copies per business:
 
 **How to read this.** In training, the truth was 3.46 copies per business and 5.58 % singletons. We predict a little
 fewer copies (3.35) and a few more empty rows (5.81 %). That is exactly what a precision-first strategy should look
-like: when unsure, leave it out. The ~0.2 % extra empty rows are mostly French businesses where we could not find the
-copies (French recall ≈ 0.90, [TECHNICAL §4](../TECHNICAL.md#4-france-domain-adaptation-without-labels)).
+like: when unsure, leave it out. The ~0.2 percentage points of extra empty rows are *probably* mostly French, since French recall
+was the weakest (≈ 0.90, [TECHNICAL §4](../TECHNICAL.md#4-france-domain-adaptation-without-labels)). That is our reading;
+confirming it needs the test file's country column `[not in the files]`.
 
 *Country-level breakdown of this file needs the test source files and is `[not in the files]`.*
+
+---
+
+<sub>← [The problem](problem.md) · [Home](../README.md) · [Build it in 6 steps](build-guide.md) →</sub>

@@ -66,3 +66,7 @@ and transformers on top.
 - **Facts vs opinion.** Every score and setting comes from the code or the team's documentation. Where we give an
   opinion (mostly [TECHNICAL §8](../TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)), it is labelled.
 - **`[not in the files]`** marks anything we could not verify. [the open questions](open-questions.md) collects these.
+
+---
+
+<sub>← [Home (README)](../README.md) · [Home](../README.md) · [The problem](problem.md) →</sub>

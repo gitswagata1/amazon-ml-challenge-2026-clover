@@ -96,3 +96,7 @@ on your laptop in five seconds to see the whole thing work. Questions?"
 | Why LightGBM and not deep learning only? | Tabular features, tens of millions of rows, CPU training. Trees are the best tool there; transformers were used where they paid. |
 | Wasn't using test data cheating? | We used only the text, never labels, and the organisers confirmed it was allowed. |
 | What would you do differently? | Work on France from day 1: build fake French training data from US/India labels, and a French-aware shortlist. |
+
+---
+
+<sub>← [Code walkthrough](code-walkthrough.md) · [Home](../README.md) · [Open questions](open-questions.md) →</sub>

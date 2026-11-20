@@ -98,3 +98,7 @@ F0.5 = 0.714.
 | Every test Source 1 record gets exactly one row, with no duplicates and only S2/S3 IDs | A validator script (`utils/validate_submission.py`) was run before every upload |
 | Public leaderboard uses part of the test set; final ranking uses the private remainder | Tuning too hard against the public score is risky (see [the journey](journey.md)) |
 | Final package includes code that reproduces both files | Hence `reproduce.py` |
+
+---
+
+<sub>← [Start here](start-here.md) · [Home](../README.md) · [The data](data.md) →</sub>

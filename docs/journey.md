@@ -173,3 +173,7 @@ All 29 public-leaderboard uploads (from `SUBMISSIONS.md`), condensed:
 | 26 | diagnostic: French rows emptied | 0.849872 → US/India 0.9897, France 0.9673 |
 | 27–29 | France threshold 0.93 / 0.88 / **0.91** | 0.986345 / 0.986335 / **0.986371** |
 | final | + noise-word recovery and confident-case reversals (final package README) | **0.986691** |
+
+---
+
+<sub>← [Learning track](learning-track.md) · [Home](../README.md) · [Lessons](lessons.md) →</sub>

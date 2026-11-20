@@ -284,3 +284,7 @@ The toy data has one kind of noise and simple look-alikes. Real data had nine sc
 - Change one thing at a time and re-run: K, the keys, a feature, the threshold. Write down what moved and why.
 - Then do the exercises in [the learning track](learning-track.md) and read [TECHNICAL §2](../TECHNICAL.md#2-the-pipeline-stage-by-stage)
   to see how each of these six steps was scaled up for 20 million real records.
+
+---
+
+<sub>← [The data](data.md) · [Home](../README.md) · [Technical deep dive](../TECHNICAL.md) →</sub>

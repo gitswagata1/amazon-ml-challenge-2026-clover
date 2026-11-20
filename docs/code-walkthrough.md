@@ -139,5 +139,9 @@ python utils/validate_submission.py --matching output/matching_results.tsv \
 ```
 
 Without the data or a GPU, you can still:
-- run `python code/business_entity_resolution/src/prep.py` (the normalisation self-test, CPU only), and
+- run the normalisation self-test from the repo root: `pip install polars && python code/code/business_entity_resolution/src/prep.py` (CPU only; prints `ok`), and
 - run everything in `examples/` at the repo root.
+
+---
+
+<sub>← [Lessons](lessons.md) · [Home](../README.md) · [Debrief script](debrief-script.md) →</sub>

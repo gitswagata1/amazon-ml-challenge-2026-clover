@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-20 · Deck palette
+
+- Pitch deck recoloured to the Coolors palette: steel teal #588B8B, white, unbleached silk #FFD5C2, cadmium orange
+  #F28F3B and cedar chest #C8553D, with a deep teal ink (#1E3535 text, #234646 dark panels) derived from steel teal.
+  Orange and silk carry dark text only; white text sits on deep teal or bold on cedar, so all text keeps readable contrast.
+
 ## 2026-11-20 · Quality pass and pitch deck
 
 **Technical accuracy**

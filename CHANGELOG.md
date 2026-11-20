@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-20 · Problem statement
+
+- Added the official problem statement PDF in `problem-statement/`, unchanged and credited to the organisers. Linked
+  from README §1, the repo map and `docs/problem.md`.
+
 ## 2026-11-20 · New solution diagram
 
 - README §6 and TECHNICAL §0: the auto-laid-out Mermaid architecture chart is replaced by a custom SVG

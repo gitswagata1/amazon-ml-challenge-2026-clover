@@ -40,7 +40,7 @@ with answers. The test set adds **France, with no training examples at all**.
 
 **Metric: macro F0.5.** Score every business, then average. Precision counts twice as much as recall.
 *Example:* truth = {A, B}; we predict {A, B, X} → precision 2/3, recall 1 → **0.714**. Predicting only {A} scores **0.833**:
-missing a copy is better than adding a wrong one. → [worked examples](docs/problem.md)
+missing a copy is better than adding a wrong one. → [worked examples](docs/problem.md) · [official problem statement (PDF)](problem-statement/Amazon-ML-Challenge-2026-Problem-Statement.pdf)
 
 **Rules.** No external data or APIs · models MIT or Apache 2.0 and ≤ 8 B parameters · a 72-hour window · smaller
 candidate sets ranked higher in the final evaluation.
@@ -218,6 +218,7 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 │   ├── code-walkthrough.md      ← file-by-file, function-by-function map of the real code
 │   ├── debrief-script.md        ← 10-minute talk + likely questions
 │   └── open-questions.md        ← what isn't in the files yet
+├── problem-statement/           ← the official Amazon problem statement (PDF)
 ├── presentation/                ← 21-slide pitch deck: PDF + PowerPoint with speaker notes
 ├── examples/                    ← laptop-runnable: metric · mini pipeline · 6-step solution
 ├── code/      → submodule: Martial-Gautam/Amazon-ML-Challenge-2026 (final submission package)

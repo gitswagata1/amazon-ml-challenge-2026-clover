@@ -1,5 +1,8 @@
 # The problem in plain English
 
+> **Source:** the official [problem statement PDF](../problem-statement/Amazon-ML-Challenge-2026-Problem-Statement.pdf).
+> This page explains it in plain words.
+
 ## The one-sentence version
 
 Amazon gave us three lists of businesses that overlap but use no shared ID, and asked: **for every business in the clean

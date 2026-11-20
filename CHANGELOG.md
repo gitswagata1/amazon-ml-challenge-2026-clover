@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-20 · Deck style pass
+
+- Dark deep-teal cover with silk and orange accents; a four-colour accent bar on every slide.
+- Softly raised cards, larger headline numbers, dark table headers, and the problem table's "different business" row
+  marked with a cedar edge.
+- Shaded area under the leaderboard score chart.
+- Staged motion when a slide appears (titles, then content, then call-outs; bars grow from the left). The PDF and
+  PowerPoint show the finished slides.
+
 ## 2026-11-20 · Deck palette
 
 - Pitch deck recoloured to the Coolors palette: steel teal #588B8B, white, unbleached silk #FFD5C2, cadmium orange

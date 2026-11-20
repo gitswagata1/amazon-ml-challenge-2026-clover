@@ -8,7 +8,7 @@ decision.
 
 | You are… | Read this path |
 |---|---|
-| **New to ML** (you can read a bit of Python) | [problem](problem.md) → run [`examples/`](../examples) → [TECHNICAL §0–2](../TECHNICAL.md) → [learning track](learning-track.md) · [glossary](../TECHNICAL.md#9-glossary) any time |
+| **New to ML** (you can read a bit of Python) | [problem](problem.md) → [build it in 6 steps](build-guide.md) → [TECHNICAL §0–2](../TECHNICAL.md) → [learning track](learning-track.md) · [glossary](../TECHNICAL.md#10-glossary) any time |
 | **A teammate who wasn't in the code** | [problem](problem.md) → [journey](journey.md) → [TECHNICAL §0–2, §7](../TECHNICAL.md) → [debrief script](debrief-script.md) |
 | **An ML engineer / reviewer** | [README](../README.md) → [TECHNICAL](../TECHNICAL.md) (all of it) → [code walkthrough](code-walkthrough.md) |
 | **Presenting this to a group** | [debrief script](debrief-script.md), then diagrams from [TECHNICAL](../TECHNICAL.md) and the [journey](journey.md) |

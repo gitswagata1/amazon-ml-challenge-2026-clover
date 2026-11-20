@@ -5,7 +5,7 @@
 This is the one document that explains the whole solution in depth: every stage, every model, the exact settings,
 what each choice did to the score, how we validated it, and where it still fails. It is written so that you can follow
 it **without an ML background**. Each idea is explained in plain words first, then given precisely. Every technical
-term is defined the first time it appears and again in the [glossary](#9-glossary).
+term is defined the first time it appears and again in the [glossary](#10-glossary).
 
 Code links point to the final package at commit
 [`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c)
@@ -24,7 +24,8 @@ and `WORKBOARD.md`.
 | 6 | [Error analysis](#6-error-analysis) | where the points were lost |
 | 7 | [Key decisions and trade-offs](#7-key-decisions-and-trade-offs) | the eight choices that mattered |
 | 8 | [Gap analysis](#8-gap-analysis-why-we-did-not-rank-higher) | why not top 10 (opinion, clearly labelled) |
-| 9 | [Glossary](#9-glossary) | every term, one line each |
+| 9 | [Scaling, production and adapting it](#9-scaling-production-and-adapting-it-to-your-data) | the forward-deployed view: limits, reliability, new countries, company data |
+| 10 | [Glossary](#10-glossary) | every term, one line each |
 
 ---
 
@@ -580,6 +581,19 @@ it, how it did, and its strengths and weaknesses.
 
 All neural models are `intfloat/multilingual-e5-*` (MIT licence). They are well within the 8 B parameter limit.
 
+**What goes in and what comes out.** This is the contract of each model, which is what you need to replace or retrain one:
+
+| Model | Input | Output | Trained on | Cost (as logged) |
+|---|---|---|---|---|
+| LightGBM matcher | ~53 numbers per pair | probability 0–1 | ~55 M training pairs from 2.1 M businesses | CPU; 1,202 trees × 3 seeds |
+| e5-small embeddings | `"query: " + name` (or address), raw text | 384-number vector | — (pre-trained) | GPU, minutes per split |
+| Dense retriever | `"query: name \| address"` | 384-number vector | 99,948 held-out businesses: 1 positive + 1 hard negative per query | GPU, 4 epochs |
+| Small cross-encoder | `"name \| address" [SEP] "name \| address"`, ≤ 96 tokens | one logit (match score) | 2.94 M pairs of the held-out businesses | GPU, 1 epoch |
+| Re-ranker (×2 halves) | same pair text | one logit | 200k businesses per half (~3.95 M pairs) | ~4.2 h per half on 2×T4; scoring ~1,650 pairs/s |
+| French cross-encoders (×2) | same pair text | one logit | 885,573 French pairs built from unlabelled test text | GPU, 1 epoch |
+| Stacking meta-model | `[logit(stage-1 p), cross-encoder logit]` | probability 0–1 | uncertain-band training pairs, 5-fold | CPU, seconds |
+
+
 ---
 
 ### Two families of model, in one picture
@@ -1087,6 +1101,16 @@ that solved France as well as it solved US/India would have been near the top wi
 | **Earlier near-complete recall** | The team's own analysis said the leaders had near-complete recall while ours capped at 0.989 (v8). The retriever only arrived in v10, on the last day | done, but late |
 | **More GPU** | ~30 GPU-hours/week per account limited how many neural variants could be trained | constraint |
 
+### The next 3 experiments (plan, not results)
+
+If we had another week, in this order:
+
+| # | Hypothesis | Experiment | Success bar |
+|---|---|---|---|
+| 1 | We can get *labelled* French-like data without French labels | rewrite labelled US/India pairs into French conventions (address formats, generic and legal words, generator-style swaps); use it as a French validation set and as training data | a French CV that agrees with the France leaderboard probes |
+| 2 | French recall (≈ 0.90) is limited by the shortlist, not the judge | fine-tune the dense retriever on the French-like data from #1; add its French neighbours as candidates | French recall up with ≤ +10 % pairs; France LB above 0.9673 |
+| 3 | General world knowledge separates French look-alikes (*Club* vs *Comité*) | an Apache-2.0 open LLM ≤ 8 B parameters as an extra judge on the hardest French band pairs, fed into the stacking model | ≥ +0.002 on France in a France-only probe |
+
 ### What this team did *better* than most (also opinion)
 
 To keep the picture fair: the leaderboard-to-CV agreement on US/India (0.9897 vs 0.98921) shows unusually careful
@@ -1104,7 +1128,91 @@ Next: [10 · Lessons for the next hackathon →](docs/lessons.md)
 
 ---
 
-## 9. Glossary
+## 9. Scaling, production and adapting it to your data
+
+> This section takes a **forward deployed engineer's view**: what it takes to run this for real, and how to bring it to a
+> new country or to a company's own records. Facts about our run come from the logs. Items marked
+> **Recommendation** are our advice, not things the team built or measured.
+
+### 9.1 The numbers you have to plan for
+
+| Quantity | Value |
+|---|---|
+| Records | ~20 M (2.2 M + 10.3 M train, 1.73 M + 9.97 M test) |
+| Candidate pairs | 43.9 M test, ~55 M train (v10 feature tables: 43,905,439 and 54,986,629 rows) |
+| Peak RAM | ~36 GB during blocking; a 54–64 GB machine was used |
+| GPU | Kaggle T4 / P100, ~30 GPU-hours per week per account; a local RTX 3050 as backup |
+| Re-ranker throughput | ~1,650 pairs/s on 2×T4 (e5-base); training ~4.2 h per half |
+| One full rebuild (v9) | planned as ~7 h: caches + pairs ~3 h, GPU ~1.5 h, train + predict ~3 h |
+| End-to-end runtime of `reproduce.py` | `[not in the files]` |
+
+### 9.2 How it stays inside those limits
+
+| Technique | Where | Effect |
+|---|---|---|
+| **Stream, don't load.** TSVs read in 400k-row batches into Parquet parts; later steps use lazy scans | `blocking.ensure`, `pl.scan_parquet` | 20 M records never sit in memory at once |
+| **Integers, not strings.** Records referred to by row number `i`/`j`; blocking keys hashed to 64-bit integers | `blocking._keys` | fast joins over tens of millions of pairs |
+| **Work per country, per chunk.** Blocking runs one country at a time, 5,000 S1 records per chunk | `blocking.block` | bounded memory; countries never mix |
+| **Expensive models only where needed.** Transformers re-read only the ~1.5 M uncertain pairs | `rerank.py export-band` | GPU cost cut ~30× vs scoring all 43.9 M pairs |
+| **GPU efficiency.** fp16, length-sorted batches, background tokenisation, multi-GPU | `ce.py`, `embed.py` | less padding, a busy GPU |
+| **Exact search, no index.** Nearest neighbours by matrix multiply on the GPU, per country | `candidates.py search` | no approximate-index tuning; exact results |
+| **Score only what's new.** After a candidate change, only new pairs were sent to the GPU | team practice (`WORKBOARD.md`) | saved scarce GPU hours |
+
+### 9.3 Reliability: what makes a 72-hour pipeline survive
+
+- **Every stage writes a file and is skipped if the file exists** (`reproduce.run_step`). A crash or power cut costs only
+  the stage that was running.
+- **Atomic writes** (`run.atomic`) and **settings in file names** plus an `.args.json` sidecar mean a half-written or
+  mismatched cache is never silently reused. After a power cut, `drop_bad_parquet.py` deletes truncated files.
+- **Assertions as guard rails:** no leakage between re-ranker halves, full coverage of every band pair, no rows changed
+  outside the country being merged, no duplicate pairs. The official validator runs on every output.
+- **Reproducibility:** fixed seeds, `transformers==4.57.6` pinned, and a CPU-vs-GPU score consistency check
+  (Pearson 1.0, max difference 0.04).
+- **Observability:** a status file auto-pushed to GitHub every 20 minutes, and a manual runbook for when no one who
+  knows the pipeline is available.
+
+### 9.4 Adapting it to a new country
+
+What already works without changes: country is an open set; blocking, neighbour search and rarity counts all run per
+country; the multilingual models read ~100 languages.
+
+| Step | What to do | How France did it |
+|---|---|---|
+| 1. Normalise local conventions | add rules for local abbreviations, legal forms, address formats | `St-`/`Ste-` = Saint, `L'`, `N°`, `bis`, `Cedex`, SARL/SAS (`prep.norm`) |
+| 2. Fit label-free statistics on the new text | TF-IDF vocabulary, rarity counts, generic-word lists | `run.tfidf --tfidf-all`, `extra_features.rarity`, `france.py` generic words |
+| 3. Adapt the text model without labels | confident pseudo-positives + synthetic look-alikes that imitate the local noise | `france.py self-train-data` → 885,573 pairs, ≈ +0.011 |
+| 4. Choose a stricter threshold | the model is over-confident on an unseen domain | 0.91 vs 0.58 for US/India |
+| 5. Measure the new country separately | a subgroup-only evaluation | France-only leaderboard probes |
+| **Recommendation** | label a few hundred pairs in the new country if you can. In a real company you usually can, and it replaces leaderboard probing with an honest local validation set | — |
+
+### 9.5 Adapting it to a company's own data (e.g. vendor or customer master data)
+
+**Recommendation.** This is a sketch of how the same design maps onto, for example, a procurement team de-duplicating
+its vendor master, or matching supplier invoices to vendors:
+
+```mermaid
+flowchart LR
+    NEW["New or changed record<br/>(vendor, customer)"] --> N["Normalise<br/>(same prep rules + local ones)"]
+    N --> BL["Block against the existing index<br/>keys + embeddings"]
+    BL --> SC["Score pairs<br/>LightGBM (+ cross-encoder on the uncertain band)"]
+    SC -->|p ≥ high threshold| AUTO["Auto-link"]
+    SC -->|uncertain band| HUMAN["Human review queue<br/>(decisions become new labels)"]
+    SC -->|p below band| NEWE["New entity"]
+    HUMAN --> RETRAIN["Periodic retrain<br/>on reviewed pairs"]
+    RETRAIN --> SC
+```
+
+| Competition choice | In production |
+|---|---|
+| One batch over a fixed test set | **incremental matching:** each new record is blocked against a stored key index and vector index |
+| Threshold tuned for F0.5 | threshold set by **business cost**: what does a false merge cost (wrong payment, compliance risk) vs a duplicate vendor? |
+| Uncertain band re-read by a transformer | uncertain band **also sent to human review**; their decisions become training labels |
+| No IDs allowed | use any trustworthy identifier you have (tax ID, registration number, bank account) as an **exact-match key** before fuzzy matching |
+| Public leaderboard | a small, refreshed, labelled **audit sample** per country or source, tracked over time for drift |
+
+---
+
+## 10. Glossary
 
 | Term | Meaning |
 |---|---|

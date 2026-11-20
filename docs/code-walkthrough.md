@@ -130,8 +130,8 @@ Full reproduction needs the competition data (`student_resource/` with `dataset/
 GPU with 16 GB, ~40 GB RAM and Python 3.12:
 
 ```bash
-git clone --recurse-submodules https://github.com/gitswagata1/amazon-ml-challenge-2026-entity-resolution.git
-cd amazon-ml-challenge-2026-entity-resolution/code
+git clone --recurse-submodules https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
+cd amazon-ml-challenge-2026-clover/code
 pip install -r code/business_entity_resolution/requirements.txt -r code/business_entity_resolution/requirements-gpu.txt
 python code/business_entity_resolution/reproduce.py --data /path/to/student_resource
 python utils/validate_submission.py --matching output/matching_results.tsv \

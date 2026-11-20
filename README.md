@@ -185,8 +185,8 @@ look-alikes. → [TECHNICAL §8](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank
 **Run the whole idea in miniature, on any laptop, in about 5 seconds:**
 
 ```bash
-git clone https://github.com/gitswagata1/amazon-ml-challenge-2026-entity-resolution.git
-cd amazon-ml-challenge-2026-entity-resolution
+git clone https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
+cd amazon-ml-challenge-2026-clover
 pip install -r examples/requirements.txt          # numpy, scikit-learn
 python examples/toy_entity_resolution.py          # data → shortlist → features → model → decisions → score
 ```
@@ -234,8 +234,8 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 **Reproduce the real submission** (needs the competition data, a CUDA GPU with 16 GB, ~40 GB RAM, Python 3.12):
 
 ```bash
-git clone --recurse-submodules https://github.com/gitswagata1/amazon-ml-challenge-2026-entity-resolution.git
-cd amazon-ml-challenge-2026-entity-resolution/code
+git clone --recurse-submodules https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
+cd amazon-ml-challenge-2026-clover/code
 pip install -r code/business_entity_resolution/requirements.txt -r code/business_entity_resolution/requirements-gpu.txt
 python code/business_entity_resolution/reproduce.py --data /path/to/student_resource
 ```

@@ -1,0 +1,4 @@
+# GPU steps (embed.py, ce.py, candidates.py). transformers is pinned: version 5.x gives different cross-encoder
+# scores on borderline pairs, so 4.57.6 is needed to reproduce the submitted output.
+transformers==4.57.6
+torch==2.11.0  # CUDA 12.8 build: pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128

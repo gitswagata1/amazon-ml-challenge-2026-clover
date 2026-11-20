@@ -7,11 +7,9 @@ what each choice did to the score, how we validated it, and where it still fails
 it **without an ML background**. Each idea is explained in plain words first, then given precisely. Every technical
 term is defined the first time it appears and again in the [glossary](#10-glossary).
 
-Code links point to the final package at commit
-[`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c)
-(the `code/` submodule). Experiment evidence comes from the 72-hour working repo
-[`Martial-Gautam/Amizon`](https://github.com/Martial-Gautam/Amizon) (the `research/` submodule), mainly `SUBMISSIONS.md`
-and `WORKBOARD.md`.
+Code links point to the final competition package in [`code/business_entity_resolution/`](code/business_entity_resolution/).
+Experiment evidence comes from the 72-hour logs: [`logs/submissions.md`](logs/submissions.md) (every leaderboard
+upload and rejected idea) and [`logs/work-log.md`](logs/work-log.md) (the live plan), plus [`experiments/`](experiments/).
 
 | § | Section | One-line summary |
 |---|---|---|
@@ -193,11 +191,8 @@ Each stage below follows the same pattern:
 - **Why:** the reasoning.
 - **What it changed:** the measured effect on the score.
 
-Code links point to the final package at commit
-[`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution).
-Experiment evidence comes from the working repo's
-[`SUBMISSIONS.md`](https://github.com/Martial-Gautam/Amizon/blob/main/SUBMISSIONS.md) and
-[`WORKBOARD.md`](https://github.com/Martial-Gautam/Amizon/blob/main/WORKBOARD.md).
+Code links point to [`code/business_entity_resolution/`](code/business_entity_resolution/); experiment evidence comes from
+[`logs/`](logs/) and [`experiments/`](experiments/).
 
 ```mermaid
 flowchart LR
@@ -212,7 +207,7 @@ flowchart LR
 **In plain words.** Before comparing names, make them comparable. "M/s. Sharma Traders Pvt. Ltd." and "SHARMA TRADERS
 PRIVATE LIMITED" should both become `sharma traders`. Think of it as translating every record into one house style.
 
-**What we did** ([`prep.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py)).
+**What we did** ([`prep.py`](code/business_entity_resolution/src/prep.py)).
 For every record we compute six derived fields:
 
 | Field | Example input → output | Function |
@@ -279,7 +274,7 @@ flowchart TD
     Z --> U
 ```
 
-**Source A, key blocking** ([`blocking.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/blocking.py)):
+**Source A, key blocking** ([`blocking.py`](code/business_entity_resolution/src/blocking.py)):
 - Each record emits many short *keys* (`block_keys` in `prep.py` and `_keys` in `blocking.py`). Two records "meet" if
   they share a key.
 - **IDF weighting** (inverse document frequency) means rare keys count more. Sharing the key `t:zphyrn` (a rare word)
@@ -344,9 +339,9 @@ them directly. These pairs were **97.6 % true** on training data and recovered 4
 **In plain words.** For each candidate pair, compute a row of numbers that describe how alike the two records are and
 how much that likeness means. The model learns from these numbers, not from the raw text.
 
-**What we did** ([`features.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/features.py),
-[`extra_features.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/pipeline/extra_features.py),
-[`embed.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/embed.py)).
+**What we did** ([`features.py`](code/business_entity_resolution/src/features.py),
+[`extra_features.py`](code/business_entity_resolution/src/pipeline/extra_features.py),
+[`embed.py`](code/business_entity_resolution/src/embed.py)).
 About 53 features, in families:
 
 | Family | Features | What they capture |
@@ -386,9 +381,9 @@ address parts) each gained ≤ +0.001 and were all **rejected** under the noise 
 LightGBM builds hundreds of small decision trees ("if name similarity > 92 and house numbers match, then…"). Each new
 tree corrects the mistakes of the trees before it.
 
-**What we did** ([`classifier.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/pipeline/classifier.py),
-[`run.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/run.py),
-[`tune.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/tune.py)):
+**What we did** ([`classifier.py`](code/business_entity_resolution/src/pipeline/classifier.py),
+[`run.py`](code/business_entity_resolution/src/run.py),
+[`tune.py`](code/business_entity_resolution/src/tune.py)):
 
 - **Training set:** all 2,206,821 training businesses **minus** the 99,948 used to train the small cross-encoder (to
   avoid leakage). That leaves 2,106,873 businesses and about 42–55 M candidate pairs.
@@ -427,9 +422,9 @@ v8's LightGBM alone reached **CV 0.9804**. v10's reached 0.98802.
 reads both records word by word, side by side, like a careful human proofreader. Then a small second model combines both
 opinions.
 
-**What we did** ([`rerank.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/pipeline/rerank.py),
-[`ce.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/ce.py),
-[`ce_data.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/ce_data.py)):
+**What we did** ([`rerank.py`](code/business_entity_resolution/src/pipeline/rerank.py),
+[`ce.py`](code/business_entity_resolution/src/ce.py),
+[`ce_data.py`](code/business_entity_resolution/src/ce_data.py)):
 
 1. **The uncertainty band.** Only pairs with LightGBM probability between **0.02 and 0.98** are re-read: ~1.5 M of the
    43.9 M test pairs. The rest are already clear.
@@ -469,8 +464,8 @@ plants decoys. Their averaged score replaces the re-ranker score for French pair
 **In plain words.** Probabilities aren't answers. This stage turns them into the final lists, cautiously, because wrong
 merges are expensive.
 
-**What we did** ([`decide.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/pipeline/decide.py),
-[`france.py`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/pipeline/france.py)):
+**What we did** ([`decide.py`](code/business_entity_resolution/src/pipeline/decide.py),
+[`france.py`](code/business_entity_resolution/src/pipeline/france.py)):
 
 ```mermaid
 flowchart TD
@@ -890,7 +885,7 @@ into the inputs. This project's credibility rests on this section: for US/India 
 | **Split by business** | `GroupKFold(5)` with groups = S1 row `i` | pairs of one business in both training and validation would leak |
 | **Pick the threshold on out-of-fold predictions** | grid 0.20–0.94, step 0.02, one-to-one on and off | a threshold picked on training predictions is over-optimistic |
 | **A noise bar** | ~+0.0005 for pipeline changes, +0.001 for features, +0.002–0.003 for unseen-country work | run-to-run LightGBM noise is about ±0.001 |
-| **One shared A/B harness** | `research/experiments/ab.py`: the same table, folds and metric for every matcher experiment | results comparable across machines and days |
+| **One shared A/B harness** | `experiments/ab.py`: the same table, folds and metric for every matcher experiment | results comparable across machines and days |
 
 ### 5.2 Where leakage could have happened, and how it was blocked
 
@@ -908,7 +903,7 @@ flowchart LR
 |---|---|---|
 | Neural feature trained on the same businesses as the matcher | the small cross-encoder and retriever train only on 99,948 businesses the matcher never sees | `--exclude-s1`, `ce_data.py`, `run.train_sample` |
 | Re-ranker scoring its own training pairs | two halves split by a fixed hash `(i × 2654435761 mod 2³²) mod 2`; each scores only the other | `ce_data.ce_half`; `rerank.py stack` **asserts** it |
-| Dictionary mined on all training pairs, including validation folds | measured directly: all-data dictionary 0.95378 vs leak-free 0.95381, so no optimism | `SUBMISSIONS.md`, "A leakage check" |
+| Dictionary mined on all training pairs, including validation folds | measured directly: all-data dictionary 0.95378 vs leak-free 0.95381, so no optimism | `logs/submissions.md`, "A leakage check" |
 | Stacking model trained and scored on the same pairs | the meta-model itself is 5-fold by business | `rerank.py stack` |
 | Test-set statistics | only label-free ones (TF-IDF vocabulary, rarity counts, French self-training text); organisers confirmed this is allowed | `run.tfidf --tfidf-all`, `extra_features.rarity`, `france.py self-train-data` |
 
@@ -923,7 +918,7 @@ flowchart LR
 ## 6. Error analysis
 
 **In plain words.** Before fixing anything, measure where the points are lost. The team did this twice
-(`research/experiments/n1_n2.py` on v7 and `err_decomp.py` on v8).
+(`experiments/n1_n2.py` on v7 and `err_decomp.py` on v8).
 
 | | v7 | v8 |
 |---|:---:|:---:|
@@ -1027,7 +1022,8 @@ Next: [09 · Why we did not rank higher →](#8-gap-analysis-why-we-did-not-rank
 
 ## 8. Gap analysis: why we did not rank higher
 
-> ⚠️ **This section is informed opinion, not fact.** We don't have the top teams' code or write-ups. The *facts* used
+> [!IMPORTANT]
+> **This section is informed opinion, not fact.** We don't have the top teams' code or write-ups. The *facts* used
 > here (our scores, the error breakdown, the leaders being above 0.99) come from the team's logs. The *explanations* and
 > *suggestions* are our best reading of them.
 
@@ -1124,7 +1120,7 @@ Next: [10 · Lessons for the next hackathon →](docs/lessons.md)
 | **Expensive models only where needed.** Transformers re-read only the ~1.5 M uncertain pairs | `rerank.py export-band` | GPU cost cut ~30× vs scoring all 43.9 M pairs |
 | **GPU efficiency.** fp16, length-sorted batches, background tokenisation, multi-GPU | `ce.py`, `embed.py` | less padding, a busy GPU |
 | **Exact search, no index.** Nearest neighbours by matrix multiply on the GPU, per country | `candidates.py search` | no approximate-index tuning; exact results |
-| **Score only what's new.** After a candidate change, only new pairs were sent to the GPU | team practice (`WORKBOARD.md`) | saved scarce GPU hours |
+| **Score only what's new.** After a candidate change, only new pairs were sent to the GPU | team practice (`logs/work-log.md`) | saved scarce GPU hours |
 
 ### 9.3 Reliability: what makes a 72-hour pipeline survive
 
@@ -1265,7 +1261,6 @@ flowchart LR
 | **Singleton** | A Source 1 business with no matches; scores 1.0 only if we predict nothing. |
 | **Softmax** | Turns a list of scores into probabilities that add up to 1; the core of the InfoNCE loss. |
 | **Stage 1 / stage 2** | Stage 1 = the LightGBM matcher's probability; stage 2 = the stacked score after the cross-encoder re-reads uncertain pairs. |
-| **Submodule** | A Git folder that points to another repository at a fixed commit; here `code/` and `research/`. |
 | **Synthetic data** | Artificially generated examples (here, French look-alikes mimicking the data generator). |
 | **Temperature** | A number that sharpens or softens a softmax; 0.05 in the retriever makes it focus hard on the closest candidates. |
 | **TF-IDF** | Vectors where each word or character trigram is weighted by frequency in the text × rarity overall. |

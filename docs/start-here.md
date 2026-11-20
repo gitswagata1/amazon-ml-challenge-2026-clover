@@ -60,9 +60,8 @@ and transformers on top.
 
 - **Plain first, technical second.** Each section explains the idea in everyday words, then gives the exact technical
   detail (file, function, number).
-- **Links to the code** point to the exact commit of the competition code
-  ([`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c)),
-  so they never go stale.
+- **Links to the code** open the real files in this repository: [`code/`](../code/business_entity_resolution/),
+  [`experiments/`](../experiments/) and [`logs/`](../logs/).
 - **Facts vs opinion.** Every score and setting comes from the code or the team's documentation. Where we give an
   opinion (mostly [TECHNICAL §8](../TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)), it is labelled.
 - **`[not in the files]`** marks anything we could not verify. [the open questions](open-questions.md) collects these.

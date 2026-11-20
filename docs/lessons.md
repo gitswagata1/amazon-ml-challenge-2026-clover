@@ -46,9 +46,9 @@ A checklist distilled from what worked and what hurt. Most of it applies to any 
 
 ## Team
 
-- [ ] **Tracks with single owners** on a shared workboard. Two people (or two AI sessions) never edit the same thing.
+- [ ] **Tracks with single owners** on a shared workboard. Two people never edit the same thing.
 - [ ] **Log every upload** with its tag, change and score.
-- [ ] **Write a manual runbook** for when the person or assistant who knows the pipeline isn't available.
+- [ ] **Write a manual runbook** for when the person who knows the pipeline isn't available.
 - [ ] **Decide the final pick by CV** where CV is trustworthy, and use the public leaderboard only for what CV can't see.
 
 ---

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-20 · One self-contained repository
+
+- The competition code, the experiments and the 72-hour logs now live in this repository (`code/`, `experiments/`,
+  `logs/`) instead of being linked as submodules. A plain `git clone` gets everything.
+- Every link and command updated for the new layout; the final package keeps its original structure, so
+  `reproduce.py` runs from the repo root.
+- Credits simplified to Team Amizon, Martial-Gautam and gitswagata1. Personal names, Kaggle handles and machine
+  details removed from all files.
+- README rebuilt: banner, palette badges, table of contents, one story from problem to results, and collapsible
+  reproduction notes. Decorative emojis removed across the repo.
+
 ## 2026-11-20 · Run it anywhere, prove it runs
 
 - `notebooks/build_from_scratch.ipynb`: the 6-step build guide as a notebook, with an "Open in Colab" badge. In Colab

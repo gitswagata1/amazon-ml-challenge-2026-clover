@@ -1,8 +1,8 @@
 # Code walkthrough
 
-A map of the code: what each file does, its key functions, and how the pieces connect. Links point to commit
-[`95b58b6`](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/tree/95b58b6f460fe362b6a4d2d362d3fb9845a1017c)
-of the final package (the `code/` submodule) and to the working repo (the `research/` submodule).
+A map of the code: what each file does, its key functions, and how the pieces connect. The final competition package
+lives in [`code/business_entity_resolution/`](../code/business_entity_resolution/), the experiments in
+[`experiments/`](../experiments/) and the 72-hour logs in [`logs/`](../logs/).
 
 ## How the package is organised
 
@@ -51,30 +51,30 @@ Run one stage: `python code/business_entity_resolution/reproduce.py --stage v9`.
 
 ## File by file
 
-### `prep.py`: normalisation ([source](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py))
+### `prep.py`: normalisation ([source](../code/business_entity_resolution/src/prep.py))
 
 | Function | Line | Does |
 |---|---|---|
-| `_char`, `latin` | [37](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L37), [69](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L69) | Indic script → Latin using Unicode character names; strips accents |
-| `_tok` | [91](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L91) | abbreviation expansion, digit-for-letter repair |
-| `norm` | [120](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L120) | the main normaliser (M/s, dotted legal forms, N°, St/Ste, elisions, Cedex, `.com`) |
-| `skel` | [141](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L141) | consonant skeleton |
-| `translate` | [157](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L157) | native-script word → English word via `native_dict.tsv` |
-| `name_fields` | [164](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L164) | → (name, core, skeleton); legal-word removal with the collision guard |
-| `addr_fields` | [184](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L184) | → (address, house-number keys like `19 dv`) |
-| `block_keys` | [200](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L200) | name keys `f: b: t: p: x: h:` |
-| `prep` | [225](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/prep.py#L225) | applies all of the above in parallel to a DataFrame |
+| `_char`, `latin` | [37](../code/business_entity_resolution/src/prep.py#L37), [69](../code/business_entity_resolution/src/prep.py#L69) | Indic script → Latin using Unicode character names; strips accents |
+| `_tok` | [91](../code/business_entity_resolution/src/prep.py#L91) | abbreviation expansion, digit-for-letter repair |
+| `norm` | [120](../code/business_entity_resolution/src/prep.py#L120) | the main normaliser (M/s, dotted legal forms, N°, St/Ste, elisions, Cedex, `.com`) |
+| `skel` | [141](../code/business_entity_resolution/src/prep.py#L141) | consonant skeleton |
+| `translate` | [157](../code/business_entity_resolution/src/prep.py#L157) | native-script word → English word via `native_dict.tsv` |
+| `name_fields` | [164](../code/business_entity_resolution/src/prep.py#L164) | → (name, core, skeleton); legal-word removal with the collision guard |
+| `addr_fields` | [184](../code/business_entity_resolution/src/prep.py#L184) | → (address, house-number keys like `19 dv`) |
+| `block_keys` | [200](../code/business_entity_resolution/src/prep.py#L200) | name keys `f: b: t: p: x: h:` |
+| `prep` | [225](../code/business_entity_resolution/src/prep.py#L225) | applies all of the above in parallel to a DataFrame |
 
 `python prep.py` runs 40+ assertions. **Read them**: they are the best documentation of the edge cases.
 
-### `blocking.py`: candidate generation ([source](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/blocking.py))
+### `blocking.py`: candidate generation ([source](../code/business_entity_resolution/src/blocking.py))
 
 - `ensure` streams each TSV in 400k-row batches through `prep` into Parquet parts with a global row index `idx`.
 - `_keys` / `keys` add address keys (`g:`, `d:`, `a:`) and hash `(country, key)` to 64-bit integers.
 - `block` per country: IDF weights (keys with df > 10,000 dropped) → sum over shared keys → pool of 1,500 → `_rescore` → top k.
 - `cand_context` gives, per candidate, its best blocking score and how many S1s picked it (features `b_n_c`, `b_rel_c`).
 
-### `run.py`: the core driver ([source](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/code/business_entity_resolution/src/run.py))
+### `run.py`: the core driver ([source](../code/business_entity_resolution/src/run.py))
 
 | Function | Does |
 |---|---|
@@ -102,27 +102,27 @@ defines the two out-of-fold halves for every machine.
 | `france.py` | `self-train-data`, `rules`, `apply`, `recover` | generator imitation; `apply` asserts only French rows changed |
 | `decide.py` | `thresholds`, `assemble`, `merge` | ambiguity rejection; `merge` asserts rows outside the country are unchanged; runs the official validator |
 
-## The working repo (`research/`): experiments worth reading
+## The experiments: the ones worth reading
 
-Each script is one hypothesis with a measured answer (results in `SUBMISSIONS.md`).
+Each script is one hypothesis with a measured answer (results in [`logs/submissions.md`](../logs/submissions.md)).
 
 | Script | Question it answered |
 |---|---|
-| [`ab.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/ab.py) | the shared A/B harness: same table, folds and metric for every matcher experiment |
-| [`recall.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/recall.py) | where are true matches lost in blocking? |
-| [`err_decomp.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/err_decomp.py) | where does macro F0.5 go (never found / FP / FN)? |
-| [`n1_n2.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/n1_n2.py) | error breakdown + a list-context second stage (rejected) |
-| [`b_rescue_ab.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/b_rescue_ab.py) | does the reverse "rescue" rule pay? (+0.0010) |
-| [`a_dict_ab.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/a_dict_ab.py), [`mine_dict.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/mine_dict.py) | does the mined native-script dictionary help? (+0.0010) |
-| [`rarity_ab.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/rarity_ab.py) | name-rarity features (+0.0038) |
-| [`pseudo_sim.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/pseudo_sim.py), [`ce_pseudo_prep.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/ce_pseudo_prep.py) | pseudo-labelling simulations (rejected) |
-| [`weight_loco.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/weight_loco.py) | importance weighting toward an unseen country (rejected) |
-| [`probe1_sim.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/probe1_sim.py), [`rule_sim.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/rule_sim.py) | simulate French rules on an unseen-country proxy before spending an upload |
-| [`france_probe.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/france_probe.py), [`frce_probe.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/frce_probe.py) | France-only leaderboard probes |
-| [`fr_synth.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/fr_synth.py) | the original French self-training data builder (P5) |
-| [`france_thr_model.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/france_thr_model.py) | fit a calibration curve to leaderboard steps and predict the best French threshold |
-| [`capacity_ab.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/capacity_ab.py) | does LightGBM need more trees at full scale? (no) |
-| [`drop_bad_parquet.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/drop_bad_parquet.py) | power-cut recovery |
+| [`ab.py`](../experiments/ab.py) | the shared A/B harness: same table, folds and metric for every matcher experiment |
+| [`recall.py`](../experiments/recall.py) | where are true matches lost in blocking? |
+| [`err_decomp.py`](../experiments/err_decomp.py) | where does macro F0.5 go (never found / FP / FN)? |
+| [`n1_n2.py`](../experiments/n1_n2.py) | error breakdown + a list-context second stage (rejected) |
+| [`b_rescue_ab.py`](../experiments/b_rescue_ab.py) | does the reverse "rescue" rule pay? (+0.0010) |
+| [`a_dict_ab.py`](../experiments/a_dict_ab.py), [`mine_dict.py`](../experiments/mine_dict.py) | does the mined native-script dictionary help? (+0.0010) |
+| [`rarity_ab.py`](../experiments/rarity_ab.py) | name-rarity features (+0.0038) |
+| [`pseudo_sim.py`](../experiments/pseudo_sim.py), [`ce_pseudo_prep.py`](../experiments/ce_pseudo_prep.py) | pseudo-labelling simulations (rejected) |
+| [`weight_loco.py`](../experiments/weight_loco.py) | importance weighting toward an unseen country (rejected) |
+| [`probe1_sim.py`](../experiments/probe1_sim.py), [`rule_sim.py`](../experiments/rule_sim.py) | simulate French rules on an unseen-country proxy before spending an upload |
+| [`france_probe.py`](../experiments/france_probe.py), [`frce_probe.py`](../experiments/frce_probe.py) | France-only leaderboard probes |
+| [`fr_synth.py`](../experiments/fr_synth.py) | the original French self-training data builder (P5) |
+| [`france_thr_model.py`](../experiments/france_thr_model.py) | fit a calibration curve to leaderboard steps and predict the best French threshold |
+| [`capacity_ab.py`](../experiments/capacity_ab.py) | does LightGBM need more trees at full scale? (no) |
+| [`drop_bad_parquet.py`](../experiments/drop_bad_parquet.py) | power-cut recovery |
 
 ## Running it
 
@@ -130,8 +130,8 @@ Full reproduction needs the competition data (`student_resource/` with `dataset/
 GPU with 16 GB, ~40 GB RAM and Python 3.12:
 
 ```bash
-git clone --recurse-submodules https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
-cd amazon-ml-challenge-2026-clover/code
+git clone https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
+cd amazon-ml-challenge-2026-clover
 pip install -r code/business_entity_resolution/requirements.txt -r code/business_entity_resolution/requirements-gpu.txt
 python code/business_entity_resolution/reproduce.py --data /path/to/student_resource
 python utils/validate_submission.py --matching output/matching_results.tsv \
@@ -139,7 +139,7 @@ python utils/validate_submission.py --matching output/matching_results.tsv \
 ```
 
 Without the data or a GPU, you can still:
-- run the normalisation self-test from the repo root: `pip install polars && python code/code/business_entity_resolution/src/prep.py` (CPU only; prints `ok`), and
+- run the normalisation self-test from the repo root: `pip install polars && python code/business_entity_resolution/src/prep.py` (CPU only; prints `ok`), and
 - run everything in `examples/` at the repo root.
 
 ---

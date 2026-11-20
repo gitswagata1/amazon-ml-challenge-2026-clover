@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 560" width="1160" height="560" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8a96a3"/></marker></defs>
+<rect width="1160" height="560" fill="#ffffff"/>
+<rect x="20" y="30" width="206" height="100" rx="10" fill="#eef1f5" stroke="#7d8da1" stroke-width="1.6"/>
+<rect x="20" y="30" width="5" height="100" rx="2" fill="#7d8da1"/>
+<text x="36" y="55" font-size="14.5" font-weight="700" fill="#1b2530">Data</text>
+<text x="36" y="76" font-size="12" font-weight="400" fill="#556270">Source 1 / 2 / 3 records</text>
+<text x="36" y="93" font-size="12" font-weight="400" fill="#556270">train 2.2 M + 10.3 M</text>
+<text x="36" y="110" font-size="12" font-weight="400" fill="#556270">test 1.7 M + 10 M</text>
+<rect x="248" y="30" width="206" height="100" rx="10" fill="#eef1f5" stroke="#7d8da1" stroke-width="1.6"/>
+<rect x="248" y="30" width="5" height="100" rx="2" fill="#7d8da1"/>
+<text x="264" y="55" font-size="14.5" font-weight="700" fill="#1b2530">Preprocessing</text>
+<text x="264" y="76" font-size="12" font-weight="400" fill="#556270">transliteration</text>
+<text x="264" y="93" font-size="12" font-weight="400" fill="#556270">abbreviations, legal forms</text>
+<text x="264" y="110" font-size="12" font-weight="400" fill="#556270">house-number keys</text>
+<rect x="476" y="30" width="206" height="100" rx="10" fill="#e3f4f1" stroke="#1f8a7a" stroke-width="1.6"/>
+<rect x="476" y="30" width="5" height="100" rx="2" fill="#1f8a7a"/>
+<text x="492" y="55" font-size="14.5" font-weight="700" fill="#1b2530">Candidate generation</text>
+<text x="492" y="76" font-size="12" font-weight="400" fill="#556270">keys + fuzzy re-rank</text>
+<text x="492" y="93" font-size="12" font-weight="400" fill="#556270">e5 kNN + dense retriever</text>
+<text x="492" y="110" font-size="12" font-weight="700" fill="#1b2530">~25 per S1 · recall 99.2 %</text>
+<rect x="704" y="30" width="206" height="100" rx="10" fill="#fdf1dc" stroke="#c07a12" stroke-width="1.6"/>
+<rect x="704" y="30" width="5" height="100" rx="2" fill="#c07a12"/>
+<text x="720" y="55" font-size="14.5" font-weight="700" fill="#1b2530">Feature engineering</text>
+<text x="720" y="76" font-size="12" font-weight="400" fill="#556270">~53 features: string,</text>
+<text x="720" y="93" font-size="12" font-weight="400" fill="#556270">address, name rarity,</text>
+<text x="720" y="110" font-size="12" font-weight="400" fill="#556270">e5 + cross-encoder scores</text>
+<rect x="932" y="30" width="206" height="100" rx="10" fill="#fdf1dc" stroke="#c07a12" stroke-width="1.6"/>
+<rect x="932" y="30" width="5" height="100" rx="2" fill="#c07a12"/>
+<text x="948" y="55" font-size="14.5" font-weight="700" fill="#1b2530">LightGBM classifier</text>
+<text x="948" y="76" font-size="12" font-weight="400" fill="#556270">gradient boosting · Optuna</text>
+<text x="948" y="93" font-size="12" font-weight="400" fill="#556270">5-fold CV · 3-seed ensemble</text>
+<text x="948" y="110" font-size="12" font-weight="700" fill="#1b2530">CV 0.98802</text>
+<path d="M226,80.0 L245,80.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M454,80.0 L473,80.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M682,80.0 L701,80.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M910,80.0 L929,80.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="20" y="168" width="1120" height="34" rx="8" fill="#fbf7ee" stroke="#d8c9a3" stroke-dasharray="5 4"/>
+<text x="580.0" y="190" font-size="12.5" text-anchor="middle" fill="#1b2530">Uncertain pairs (0.02 ≤ p ≤ 0.98, ~1.5 M test pairs) go to a transformer re-ranker · confident pairs keep their score</text>
+<path d="M1035.0,130 L1035.0,165" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="20" y="224" width="894" height="126" rx="12" fill="#f3f6f8"/>
+<text x="34" y="292.0" font-size="15" font-weight="700" fill="#3d4a57">US / India</text>
+<rect x="20" y="362" width="894" height="126" rx="12" fill="#f3f6f8"/>
+<text x="34" y="430.0" font-size="15" font-weight="700" fill="#3d4a57">France</text>
+<rect x="150" y="232" width="236" height="110" rx="10" fill="#efe6fa" stroke="#7a4bc2" stroke-width="1.6"/>
+<rect x="150" y="232" width="5" height="110" rx="2" fill="#7a4bc2"/>
+<text x="166" y="257" font-size="14.5" font-weight="700" fill="#1b2530">Cross-encoder re-ranker</text>
+<text x="166" y="278" font-size="12" font-weight="400" fill="#556270">multilingual-e5-base · 278 M</text>
+<text x="166" y="295" font-size="12" font-weight="400" fill="#556270">fine-tuned, 2-fold</text>
+<text x="166" y="312" font-size="12" font-weight="400" fill="#556270">reads both records together</text>
+<rect x="408" y="232" width="236" height="110" rx="10" fill="#fdf1dc" stroke="#c07a12" stroke-width="1.6"/>
+<rect x="408" y="232" width="5" height="110" rx="2" fill="#c07a12"/>
+<text x="424" y="257" font-size="14.5" font-weight="700" fill="#1b2530">Stacking</text>
+<text x="424" y="278" font-size="12" font-weight="400" fill="#556270">LightGBM meta-model:</text>
+<text x="424" y="295" font-size="12" font-weight="400" fill="#556270">combines classifier and</text>
+<text x="424" y="312" font-size="12" font-weight="400" fill="#556270">re-ranker scores</text>
+<text x="424" y="329" font-size="12" font-weight="700" fill="#1b2530">CV 0.98876</text>
+<rect x="666" y="232" width="236" height="110" rx="10" fill="#e6f3e4" stroke="#3f8a3a" stroke-width="1.6"/>
+<rect x="666" y="232" width="5" height="110" rx="2" fill="#3f8a3a"/>
+<text x="682" y="257" font-size="14.5" font-weight="700" fill="#1b2530">Post-processing</text>
+<text x="682" y="278" font-size="12" font-weight="400" fill="#556270">one-to-one assignment</text>
+<text x="682" y="295" font-size="12" font-weight="400" fill="#556270">threshold 0.58</text>
+<text x="682" y="312" font-size="12" font-weight="400" fill="#556270">ambiguity rejection</text>
+<text x="682" y="329" font-size="12" font-weight="700" fill="#1b2530">CV 0.98921</text>
+<path d="M386,287.0 L405,287.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M644,287.0 L663,287.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M268.0,202 L268.0,229" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="150" y="370" width="236" height="110" rx="10" fill="#efe6fa" stroke="#7a4bc2" stroke-width="1.6"/>
+<rect x="150" y="370" width="5" height="110" rx="2" fill="#7a4bc2"/>
+<text x="166" y="395" font-size="14.5" font-weight="700" fill="#1b2530">Domain adaptation</text>
+<text x="166" y="416" font-size="12" font-weight="400" fill="#556270">2 × multilingual-e5-base</text>
+<text x="166" y="433" font-size="12" font-weight="400" fill="#556270">self-trained on French</text>
+<text x="166" y="450" font-size="12" font-weight="400" fill="#556270">test records: pseudo-labels</text>
+<text x="166" y="467" font-size="12" font-weight="400" fill="#556270">+ synthetic negatives</text>
+<rect x="408" y="370" width="236" height="110" rx="10" fill="#fdf1dc" stroke="#c07a12" stroke-width="1.6"/>
+<rect x="408" y="370" width="5" height="110" rx="2" fill="#c07a12"/>
+<text x="424" y="395" font-size="14.5" font-weight="700" fill="#1b2530">Stacking</text>
+<text x="424" y="416" font-size="12" font-weight="400" fill="#556270">same meta-model, with the</text>
+<text x="424" y="433" font-size="12" font-weight="400" fill="#556270">French cross-encoders in</text>
+<text x="424" y="450" font-size="12" font-weight="400" fill="#556270">the re-ranker&#x27;s place</text>
+<rect x="666" y="370" width="236" height="110" rx="10" fill="#e6f3e4" stroke="#3f8a3a" stroke-width="1.6"/>
+<rect x="666" y="370" width="5" height="110" rx="2" fill="#3f8a3a"/>
+<text x="682" y="395" font-size="14.5" font-weight="700" fill="#1b2530">Post-processing</text>
+<text x="682" y="416" font-size="12" font-weight="400" fill="#556270">one-to-one assignment</text>
+<text x="682" y="433" font-size="12" font-weight="400" fill="#556270">threshold 0.91</text>
+<text x="682" y="450" font-size="12" font-weight="400" fill="#556270">look-alike rules</text>
+<text x="682" y="467" font-size="12" font-weight="400" fill="#556270">noise-word recovery</text>
+<path d="M386,425.0 L405,425.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M644,425.0 L663,425.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M136,202 L136,425.0 L147,425.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="946" y="272" width="194" height="168" rx="10" fill="#1b2530" stroke="#1b2530" stroke-width="1.6"/>
+<text x="962" y="297" font-size="14.5" font-weight="700" fill="#ffffff">Output</text>
+<text x="962" y="318" font-size="12" font-weight="400" fill="#ffffff">matching_results.tsv</text>
+<text x="962" y="335" font-size="12" font-weight="400" fill="#ffffff">US / India + France</text>
+<text x="962" y="352" font-size="12" font-weight="400" fill="#ffffff">merged by country</text>
+<text x="962" y="369" font-size="12" font-weight="400" fill="#ffffff"></text>
+<text x="962" y="386" font-size="12" font-weight="400" fill="#ffffff">Public LB</text>
+<text x="962" y="403" font-size="12" font-weight="700" fill="#ffffff">0.986691</text>
+<path d="M902,287.0 L943,287.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<path d="M902,425.0 L943,425.0" fill="none" stroke="#8a96a3" stroke-width="1.8" marker-end="url(#ah)"/>
+<rect x="20" y="521" width="14" height="14" rx="3" fill="#eef1f5" stroke="#7d8da1" stroke-width="1.6"/>
+<text x="40" y="532" font-size="12.5" fill="#556270">Data &amp; preprocessing</text>
+<rect x="204.0" y="521" width="14" height="14" rx="3" fill="#e3f4f1" stroke="#1f8a7a" stroke-width="1.6"/>
+<text x="224.0" y="532" font-size="12.5" fill="#556270">Candidate generation</text>
+<rect x="388.0" y="521" width="14" height="14" rx="3" fill="#fdf1dc" stroke="#c07a12" stroke-width="1.6"/>
+<text x="408.0" y="532" font-size="12.5" fill="#556270">Classical ML (LightGBM)</text>
+<rect x="593.6" y="521" width="14" height="14" rx="3" fill="#efe6fa" stroke="#7a4bc2" stroke-width="1.6"/>
+<text x="613.6" y="532" font-size="12.5" fill="#556270">Transformer models</text>
+<rect x="763.2" y="521" width="14" height="14" rx="3" fill="#e6f3e4" stroke="#3f8a3a" stroke-width="1.6"/>
+<text x="783.2" y="532" font-size="12.5" fill="#556270">Post-processing</text>
+</svg>

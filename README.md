@@ -1,26 +1,46 @@
-<div align="center">
+<p align="center">
+  <img src="docs/assets/social-preview.png" alt="Business Entity Resolution at Scale: Amazon ML Challenge 2026, Team Amizon. Top 500 nationally, public leaderboard 0.9867, 99.2 % candidate recall." width="100%">
+</p>
 
-# Business Entity Resolution at Scale
-### Amazon ML Challenge 2026 · Team Amizon · Top 500 nationally
+<p align="center">
+  ![public LB](https://img.shields.io/badge/public%20LB-0.986691-234646?style=flat-square)
+  ![CV US+India](https://img.shields.io/badge/CV%20US+India-0.98921-2F5E5E?style=flat-square)
+  ![candidate recall](https://img.shields.io/badge/candidate%20recall-99.2%2520%25-588B8B?style=flat-square)
+  ![candidates](https://img.shields.io/badge/candidates-~25%2520per%2520business-588B8B?style=flat-square)
+  ![rank](https://img.shields.io/badge/rank-Top%2520500-C8553D?style=flat-square)
+  ![external data](https://img.shields.io/badge/external%20data-none-5A7373?style=flat-square)
+  <br>
+  <a href="https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+  <a href="https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml"><img src="https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml/badge.svg" alt="examples"></a>
+</p>
 
-**Which of 10 million messy records belong to the same real business?**<br>
-**We answered it for 1.7 million businesses across three countries, one of which had no training data.**
+<p align="center"><b>Which of 10 million messy records belong to the same real business?</b><br>
+We answered it for 1.7 million businesses across three countries, one of which had no training data,
+and documented every step so you can rebuild it from scratch.</p>
 
-![Public LB](https://img.shields.io/badge/public%20LB%20(macro%20F0.5)-0.986691-2563eb)
-![CV](https://img.shields.io/badge/CV%20US%2BIndia-0.98921-2563eb)
-![Recall](https://img.shields.io/badge/candidate%20recall-99.2%25-16a34a)
-![Candidates](https://img.shields.io/badge/candidates%20per%20business-~25-16a34a)
-![Rank](https://img.shields.io/badge/rank-Top%20500-f59e0b)
-![External data](https://img.shields.io/badge/external%20data-none-6b7280)
+<p align="center">
+  <a href="docs/start-here.md"><b>New to ML</b></a> ·
+  <a href="TECHNICAL.md"><b>Technical deep dive</b></a> ·
+  <a href="#8-start-here"><b>Run it</b></a> ·
+  <a href="#2-why-it-matters"><b>Business view</b></a> ·
+  <a href="presentation/"><b>Pitch deck</b></a>
+</p>
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb)
-[![examples](https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml/badge.svg)](https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml)
+---
 
-| 🌱 I'm new to ML | 🔬 I want the technical detail | ▶️ I want to run it | 💼 I want the business view | 🎤 I want to present it |
-|:---:|:---:|:---:|:---:|:---:|
-| [Start here](docs/start-here.md) → [build it in 6 steps](docs/build-guide.md) | [TECHNICAL.md](TECHNICAL.md) | [5-second demo](#8-start-here) | [Why it matters](#2-why-it-matters) · [adapting it](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) | [Pitch deck](presentation/) (PDF · PowerPoint) |
+## Contents
 
-</div>
+1. [The problem](#1-the-problem)
+2. [Why it matters](#2-why-it-matters)
+3. [The gap: why this is still hard](#3-the-gap-why-this-is-still-hard)
+4. [Our approach](#4-our-approach)
+5. [The journey](#5-the-journey)
+6. [The solution](#6-the-solution)
+7. [Results and impact](#7-results-and-impact)
+8. [Start here](#8-start-here)
+9. [Repository](#9-repository)
+10. [Reproduce the submission](#10-reproduce-the-submission)
+11. [Credits and licence](#11-credits-and-licence)
 
 ---
 
@@ -33,7 +53,7 @@ Amazon gave us business records from **three independent sources** describing th
 | 1 (clean reference) | Sharma Traders Private Limited | 12, MG Road, Indiranagar, Bengaluru 560038 |
 | 2 | SHARMA TRADERS PVT LTD | 12 M.G. Rd, Bangalore |
 | 3 | शर्मा ट्रेडर्स | Near SBI ATM, MG Road, 560038 |
-| 3 | Sharma Trading Services | 14 MG Road, Bengaluru ← *a different business next door* |
+| 3 | Sharma Trading Services | 14 MG Road, Bengaluru *(a different business next door)* |
 
 **Task.** For each of the **1,732,544** Source 1 businesses in the test set, list every matching record among the
 **9.97 M** records of Sources 2 and 3. A business can have zero, one or many matches.
@@ -43,7 +63,7 @@ with answers. The test set adds **France, with no training examples at all**.
 
 **Metric: macro F0.5.** Score every business, then average. Precision counts twice as much as recall.
 *Example:* truth = {A, B}; we predict {A, B, X} → precision 2/3, recall 1 → **0.714**. Predicting only {A} scores **0.833**:
-missing a copy is better than adding a wrong one. → [worked examples](docs/problem.md) · [official problem statement (PDF)](problem-statement/Amazon-ML-Challenge-2026-Problem-Statement.pdf)
+missing a copy is better than adding a wrong one. More in [docs/problem.md](docs/problem.md) and the [official problem statement (PDF)](problem-statement/Amazon-ML-Challenge-2026-Problem-Statement.pdf).
 
 **Rules.** No external data or APIs · models MIT or Apache 2.0 and ≤ 8 B parameters · a 72-hour window · smaller
 candidate sets ranked higher in the final evaluation.
@@ -84,7 +104,7 @@ deliberate traps, and transfer to a country with no labels.
 
 ---
 
-## 4. Our approach in one picture
+## 4. Our approach
 
 ```mermaid
 flowchart LR
@@ -99,7 +119,7 @@ flowchart LR
 4. **France gets its own path**, because it has no labels.
 
 **The key insight:** if the shortlist misses a match, nothing later can recover it. Our biggest jumps came from better
-shortlists, not better models. → [TECHNICAL §1](TECHNICAL.md#1-how-to-think-about-the-problem)
+shortlists, not better models. See [TECHNICAL §1](TECHNICAL.md#1-how-to-think-about-the-problem)
 
 ---
 
@@ -116,7 +136,7 @@ xychart-beta
     line [0.852, 0.919, 0.936, 0.953, 0.973867, 0.983893, 0.985330, 0.986691]
 ```
 
-| Step | What we tried | ✅ Went right | ❌ Went wrong | Lesson |
+| Step | What we tried | What went right | What went wrong | Lesson |
 |---|---|---|---|---|
 | **v1–v3** · day 1 | keyword blocking, fuzzy re-rank, address keys | recall 81 → 93 %, LB 0.852 → 0.936 | a learned re-ranker raised recall but *lowered* the score | more candidates can mean harder traps |
 | **v7** · day 2 | tuning, embeddings, small cross-encoder | cross-encoder +0.0077; tuning +0.0028 | CatBoost, blends, extra features: no gain. Rank ~1,069 | models that read the *words* beat numbers about words |
@@ -126,7 +146,7 @@ xychart-beta
 | **v10** | fine-tuned retriever, 3 seeds | recall **99.2 %**, CV 0.98921 | hurt France; out-of-memory crash; power cut; stale Kaggle data; GPU quota | cache everything, verify inputs, budget compute |
 | **final** | US/India from v10 + France from v9, French threshold 0.91 | **LB 0.986691** | France still 0.9673 | plan for the unseen part from day 1 |
 
-→ Day-by-day timeline, every incident and all 29 uploads: [docs/journey.md](docs/journey.md)
+Day-by-day timeline, every incident and all 29 uploads: **[docs/journey.md](docs/journey.md)**
 
 ---
 
@@ -144,7 +164,7 @@ xychart-beta
 - **Numbers you can trust:** grouped cross-validation and out-of-fold models. For US/India, CV (0.98921) matched the
   leaderboard (0.9897).
 
-→ Every stage, model, setting and trade-off: **[TECHNICAL.md](TECHNICAL.md)**
+Every stage, model, setting and trade-off: **[TECHNICAL.md](TECHNICAL.md)**
 
 ---
 
@@ -170,16 +190,16 @@ xychart-beta
 
 **What we'd do next:** almost the whole gap to the top 10 is France (≈ +0.003 if France matched US/India). The plan:
 synthetic French training data from labelled US/India pairs, a France-aware retriever, and an open LLM judge for French
-look-alikes. → [TECHNICAL §8](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)
+look-alikes. [TECHNICAL §8](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)
 
 ---
 
 ## 8. Start here
 
-**No install:** open the 6-step notebook in Colab and run it top to bottom (about 15 seconds).
+**No install.** Open the 6-step notebook in Colab and run it top to bottom (about 15 seconds).
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb)
 
-**Or run the whole idea in miniature on any laptop, in about 5 seconds:**
+**On your laptop**, the whole idea in miniature runs in about 5 seconds:
 
 ```bash
 git clone https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
@@ -195,72 +215,75 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 [model]    best threshold 0.80 (chosen on out-of-fold predictions) -> macro F0.5 0.9361
 ```
 
-**Reading paths:**
+**Reading paths**
 
-| You are… | Path |
+| If you are | Read |
 |---|---|
-| 🌱 **New to ML** | [start here](docs/start-here.md) → [the problem](docs/problem.md) → [build it in 6 steps](docs/build-guide.md) → [TECHNICAL §0–3](TECHNICAL.md) → [exercises](docs/learning-track.md) |
-| 👥 **A teammate presenting it** | [the problem](docs/problem.md) → [journey](docs/journey.md) → [TECHNICAL §0–2, §7](TECHNICAL.md) → [10-minute debrief script](docs/debrief-script.md) |
-| 🔬 **ML engineer or recruiter** | this README → [TECHNICAL.md](TECHNICAL.md) → [code walkthrough](docs/code-walkthrough.md) |
-| 🎤 **Pitching it** (faculty, guide, class) | [the 21-slide deck](presentation/) with speaker notes → [debrief script](docs/debrief-script.md) |
-| 💼 **Business or product** | [§2 why it matters](#2-why-it-matters) → [§7 results](#7-results-and-impact) → [TECHNICAL §9: adapting it to your data](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) |
+| **New to ML** | [Start here](docs/start-here.md) → [The problem](docs/problem.md) → [Build it in 6 steps](docs/build-guide.md) → [TECHNICAL §0–3](TECHNICAL.md) → [Exercises](docs/learning-track.md) |
+| **Presenting it** (faculty, guide, class) | [Pitch deck](presentation/) → [10-minute debrief script](docs/debrief-script.md) → [The journey](docs/journey.md) |
+| **An ML engineer or recruiter** | This README → [TECHNICAL.md](TECHNICAL.md) → [Code walkthrough](docs/code-walkthrough.md) → [`code/`](code/business_entity_resolution/) |
+| **Business or product** | [Why it matters](#2-why-it-matters) → [Results](#7-results-and-impact) → [TECHNICAL §9: adapting it to your data](TECHNICAL.md#9-scaling-production-and-adapting-it-to-your-data) |
 
 ---
 
-## 9. Repository, reproduction, credits
+## 9. Repository
 
 ```text
 .
-├── README.md                    ← you are here
-├── TECHNICAL.md                 ← the deep dive: architecture, every stage and model, validation, errors,
-│                                  decisions, gap analysis, scaling and adaptation, glossary
-├── docs/
-│   ├── start-here.md            ← how to use this repo to learn ML
-│   ├── problem.md · data.md     ← problem, metric, rules and data in plain words
-│   ├── build-guide.md           ← rebuild the solution from scratch in 6 runnable steps
-│   ├── learning-track.md        ← exercises from beginner to advanced, with answers
-│   ├── journey.md               ← timeline, every incident, all 29 leaderboard uploads
-│   ├── lessons.md               ← checklist for the next ML hackathon
-│   ├── code-walkthrough.md      ← file-by-file, function-by-function map of the real code
-│   ├── debrief-script.md        ← 10-minute talk + likely questions
-│   └── open-questions.md        ← what isn't in the files yet
-├── problem-statement/           ← the official Amazon problem statement (PDF)
-├── presentation/                ← 21-slide pitch deck: PDF + PowerPoint with speaker notes
-├── examples/                    ← laptop-runnable: metric · mini pipeline · 6-step solution
-├── notebooks/                   ← the 6-step build guide as a Colab notebook (outputs included)
-├── .github/workflows/           ← CI: runs every example and the notebook on each push
-├── code/      → submodule: Martial-Gautam/Amazon-ML-Challenge-2026 (final submission package)
-└── research/  → submodule: Martial-Gautam/Amizon (72-hour working repo: experiments, logs)
+├── README.md                     you are here
+├── TECHNICAL.md                  the deep dive: architecture, stages, models, validation, errors, decisions, glossary
+├── code/business_entity_resolution/
+│   ├── reproduce.py              one command runs the whole competition pipeline
+│   ├── src/                      preprocessing, blocking, features, embeddings, cross-encoders, driver, tuning
+│   └── src/pipeline/             candidates, extra features, classifier, re-ranking, France, decisions
+├── experiments/                  60+ A/B tests, simulations and Kaggle kernels from the 72 hours
+├── logs/
+│   ├── submissions.md            all 29 leaderboard uploads and every rejected idea, with scores
+│   ├── work-log.md               the live plan: tracks, machines, incidents, decisions
+│   └── methodology-submitted.md  the methodology document submitted with the final package
+├── docs/                         start here, problem, data, build guide, journey, lessons, exercises,
+│                                 code walkthrough, debrief script, open questions
+├── examples/                     laptop-runnable: metric · mini pipeline · 6-step solution
+├── notebooks/                    the 6-step build guide as a Colab notebook
+├── presentation/                 21-slide pitch deck (PDF + PowerPoint with speaker notes)
+├── problem-statement/            the official problem statement (PDF)
+└── .github/workflows/            CI: runs every example and the notebook on each push
 ```
 
-**Reproduce the real submission** (needs the competition data, a CUDA GPU with 16 GB, ~40 GB RAM, Python 3.12):
+---
+
+## 10. Reproduce the submission
+
+<details>
+<summary><b>Full reproduction</b> (needs the competition data, a 16 GB CUDA GPU, ~40 GB RAM, Python 3.12)</summary>
+
+<br>
 
 ```bash
-git clone --recurse-submodules https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
-cd amazon-ml-challenge-2026-clover/code
+git clone https://github.com/gitswagata1/amazon-ml-challenge-2026-clover.git
+cd amazon-ml-challenge-2026-clover
 pip install -r code/business_entity_resolution/requirements.txt -r code/business_entity_resolution/requirements-gpu.txt
 python code/business_entity_resolution/reproduce.py --data /path/to/student_resource
 ```
 
+`--data` is the organisers' `student_resource/` folder (with `dataset/` and `utils/`). Each stage caches its output,
+so an interrupted run resumes where it stopped. The dataset belongs to Amazon and is not included.
+
+</details>
+
 **Tech stack:** Python 3.12 · Polars · NumPy · RapidFuzz · scikit-learn · LightGBM · Optuna · PyTorch · Hugging Face
-`transformers` 4.57.6 · `multilingual-e5-small` (118 M) and `-base` (278 M), MIT licensed · Kaggle T4/P100 GPUs and a
-32-core workstation.
+`transformers` 4.57.6 · `intfloat/multilingual-e5-small` (118 M) and `-base` (278 M), MIT licensed.
 
-**My role.** I wrote this repository. I analysed the team's final code (`code/`) and its 72-hour working repo
-(`research/`), and turned them into the documentation, `TECHNICAL.md`, the 6-step build guide, the runnable examples
-and notebook, the diagrams and the pitch deck. I also checked every number against the team's logs and checked that
-every script runs. The competition pipeline itself is the team's work, credited below.
+---
 
-**Credits.** Team Amizon. The competition code and methodology are by Ranveer Gautam
-([`Martial-Gautam`](https://github.com/Martial-Gautam)), Satyam Kumar Pandey and Shreepal, as listed in the team's
-[methodology document](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026/blob/95b58b6f460fe362b6a4d2d362d3fb9845a1017c/Documentation_template.md).
-Their code is **linked, not copied**:
-[Amazon-ML-Challenge-2026](https://github.com/Martial-Gautam/Amazon-ML-Challenge-2026) ·
-[Amizon](https://github.com/Martial-Gautam/Amizon). This documentation, the build guide, the learning track and the
-examples are by Swagata Banerjee ([`gitswagata1`](https://github.com/gitswagata1)). Every number comes from the team's
-files. Anything unverified is marked `[not in the files]` and listed in [open questions](docs/open-questions.md). The
-competition dataset belongs to Amazon and is not included.
+## 11. Credits and licence
 
-**Changes:** see [CHANGELOG.md](CHANGELOG.md).
+Built by **Team Amizon** for the Amazon ML Challenge 2026. Competition pipeline co-developed with
+[**Martial-Gautam**](https://github.com/Martial-Gautam). Analysis, documentation, teaching material, notebook,
+diagrams and pitch deck by [**gitswagata1**](https://github.com/gitswagata1).
 
-**Licence:** [MIT](LICENSE), covering the docs and examples in this repository only.
+Every number in this repository comes from the team's logs ([`logs/`](logs/)). Anything we could not verify is
+listed in [docs/open-questions.md](docs/open-questions.md). The official problem statement is included for reference.
+The competition dataset is not included. Changes are tracked in [CHANGELOG.md](CHANGELOG.md).
+
+Licensed under the [MIT Licence](LICENSE).

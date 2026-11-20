@@ -31,7 +31,7 @@ File: `examples/toy_entity_resolution.py`
 
 ## Level 3 · Read the real code (half a day)
 
-1. Run `python code/code/business_entity_resolution/src/prep.py` (needs `pip install polars`). Read every assertion and
+1. Run `python code/business_entity_resolution/src/prep.py` (needs `pip install polars`). Read every assertion and
    write a one-line note on what noise it guards against.
 2. Compute by hand: `skel("enterprises")`, `skel("enterpires")`, `skel("marketing")`.
 3. Read `run.decide` (5 lines) and `run.f05`. Map them onto your toy pipeline.
@@ -56,7 +56,7 @@ File: `examples/toy_entity_resolution.py`
 1. Write a one-page plan for the 2027 challenge using [the lessons](lessons.md)'s checklist, *before* you see the data.
 2. Pick one idea from [TECHNICAL §8](../TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher)'s table and design the experiment that would test it: data, metric, noise bar, and what
    result would make you adopt it.
-3. Read `research/SUBMISSIONS.md` top to bottom. For three rejected ideas, explain in your own words *why* they failed.
+3. Read `logs/submissions.md` top to bottom. For three rejected ideas, explain in your own words *why* they failed.
 
 ---
 

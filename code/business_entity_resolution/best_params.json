@@ -1,0 +1,14 @@
+{
+  "learning_rate": 0.04056867836871469,
+  "num_leaves": 286,
+  "min_child_samples": 175,
+  "feature_fraction": 0.5044565604481525,
+  "bagging_fraction": 0.9532133625924337,
+  "lambda_l1": 0.09604059379353896,
+  "lambda_l2": 3.1564216517738544,
+  "scale_pos_weight": 1.2096825993310858,
+  "n_estimators": 1202,
+  "cv_f05": 0.9493145954778431,
+  "threshold": 0.72,
+  "baseline_f05": 0.9491488178024277
+}

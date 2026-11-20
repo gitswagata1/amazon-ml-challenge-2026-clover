@@ -1,8 +1,8 @@
 # The journey: ups, downs and what we learned
 
 This is the honest part of the story: what went wrong, how the team found out, and what fixed it (or didn't). Sources: the
-working repo's [`WORKBOARD.md`](https://github.com/Martial-Gautam/Amizon/blob/main/WORKBOARD.md),
-[`SUBMISSIONS.md`](https://github.com/Martial-Gautam/Amizon/blob/main/SUBMISSIONS.md) and the commit history.
+team's logs: [`logs/work-log.md`](../logs/work-log.md) and
+[`logs/submissions.md`](../logs/submissions.md).
 
 ## The 72 hours at a glance
 
@@ -27,7 +27,7 @@ timeline
                    : France threshold sweep, final LB 0.986691
 ```
 
-| Version | What we tried | What went right ✅ | What went wrong ❌ | Lesson |
+| Version | What we tried | What went right | What went wrong | Lesson |
 |---|---|---|---|---|
 | v1 → v3 | keys, pool + fuzzy re-rank, address keys | LB 0.852 → 0.936 from blocking alone | LambdaRank re-ranker raised recall but lowered F0.5 | more candidates can mean harder negatives |
 | v4 – v7 | competition features, tuning, CatBoost, embeddings, small cross-encoder | cross-encoder +0.0077; Optuna +0.0028 | v4 features, CatBoost, blends: no gain | read the words, not just numbers about them |
@@ -41,7 +41,7 @@ timeline
 ## 1. Where the error actually was (error decomposition)
 
 Before deciding what to fix, the team measured *where* the score was being lost
-([`experiments/err_decomp.py`](https://github.com/Martial-Gautam/Amizon/blob/main/experiments/err_decomp.py) on v8's
+([`experiments/err_decomp.py`](../experiments/err_decomp.py) on v8's
 out-of-fold predictions). This is one of the most useful habits in the whole project:
 
 | v8, CV | Score |
@@ -130,22 +130,22 @@ e5-large (ce3); richer stacking (+0.00006); more trees; count-based conflict res
 self-training round (−0.000184).
 
 None of these were wasted: each was measured, logged and not retried. **The written "rejected" list is a tool.** It stops
-a tired team, or a new AI-assistant session, from re-running dead ends at 3 a.m.
+a tired team from re-running dead ends at 3 a.m.
 
 ## 7. How the team worked
 
 - **Tracks with owners** (candidate budget, GPU features, model blends, full-data training, submissions/docs), each on a
   named machine, written on a shared workboard.
-- **AI coding assistants.** The handoff notes show two Claude Code sessions working in parallel under the team's
-  direction, coordinated through `WORKBOARD.md` and `CLAUDE.md`. Decisions such as "drop word TF-IDF from any rebuild",
-  "use top 10 retriever neighbours" and "re-run the tree-count curve" were the user's calls.
+- **Parallel work sessions** on separate machines, coordinated through one shared work log
+  ([`logs/work-log.md`](../logs/work-log.md)). Every key call ("drop word TF-IDF from any rebuild", "use the top 10
+  retriever neighbours", "re-run the tree-count curve") was made explicitly and written down.
 - **A strict acceptance bar.** Change kept only if CV gained > ~+0.0005 (or +0.001 for features, +0.002–0.003 for
   unseen-country work). Every result logged, every upload tagged in Git.
-- **A manual runbook** for when no assistant session was available, including what to upload and what to fall back to.
+- **A manual runbook** for when the person running the pipeline was unavailable, including what to upload and what to fall back to.
 
 ## The leaderboard log
 
-All 29 public-leaderboard uploads (from `SUBMISSIONS.md`), condensed:
+All 29 public-leaderboard uploads (from [`logs/submissions.md`](../logs/submissions.md)), condensed:
 
 | # | What changed | Public LB |
 |---|---|---|

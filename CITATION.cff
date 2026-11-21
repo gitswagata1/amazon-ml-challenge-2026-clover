@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this write-up or code, please cite it as below."
+title: "Business Entity Resolution at Scale: Amazon ML Challenge 2026"
+abstract: "Team Amizon's Top 500 solution to the Amazon ML Challenge 2026: matching 1.7 million businesses across three sources and three countries, with a technical deep dive and a learn-ML-from-scratch track."
+authors:
+  - name: "Team Amizon"
+  - alias: "gitswagata1"
+  - alias: "Martial-Gautam"
+type: software
+license: MIT
+version: "1.0"
+date-released: "2026-11-21"
+repository-code: "https://github.com/gitswagata1/amazon-ml-challenge-2026-clover"
+keywords:
+  - entity resolution
+  - record linkage
+  - machine learning
+  - LightGBM
+  - transformers
+  - domain adaptation

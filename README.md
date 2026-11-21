@@ -291,4 +291,4 @@ Every number in this repository comes from the team's logs ([`logs/`](logs/)). A
 listed in [docs/open-questions.md](docs/open-questions.md). The official problem statement is included for reference.
 The competition dataset is not included. Changes are tracked in [CHANGELOG.md](CHANGELOG.md).
 
-Licensed under the [MIT Licence](LICENSE).
+Licensed under the [MIT Licence](LICENSE). To cite this work, use the **Cite this repository** button on GitHub ([CITATION.cff](CITATION.cff)).

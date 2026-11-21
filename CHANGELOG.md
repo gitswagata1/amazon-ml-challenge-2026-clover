@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-21 · v1.0
+
+- 22 unit tests for the competition pipeline's core: transliteration and normalisation (French, US and Indian
+  address quirks), consonant skeletons across scripts, legal-word removal, house-number keys, blocking-key
+  families and feature helpers. They run on every push alongside the examples.
+- README badges render as images; credits line trimmed.
+
 ## 2026-11-20 · One self-contained repository
 
 - The competition code, the experiments and the 72-hour logs now live in this repository (`code/`, `experiments/`,

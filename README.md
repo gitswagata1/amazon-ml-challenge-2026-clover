@@ -244,6 +244,7 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 ├── docs/                         start here, problem, data, build guide, journey, lessons, exercises,
 │                                 code walkthrough, debrief script, open questions
 ├── examples/                     laptop-runnable: metric · mini pipeline · 6-step solution
+├── tests/                        unit tests for the pipeline's normalisation, blocking keys and features
 ├── notebooks/                    the 6-step build guide as a Colab notebook
 ├── presentation/                 21-slide pitch deck (PDF + PowerPoint with speaker notes)
 ├── problem-statement/            the official problem statement (PDF)

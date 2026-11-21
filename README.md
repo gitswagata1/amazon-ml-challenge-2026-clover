@@ -278,8 +278,7 @@ so an interrupted run resumes where it stopped. The dataset belongs to Amazon an
 
 ## 11. Credits and licence
 
-Built by **Team Amizon** for the Amazon ML Challenge 2026. Competition pipeline co-developed with
-[**Martial-Gautam**](https://github.com/Martial-Gautam). Analysis, documentation, teaching material, notebook,
+Competition pipeline co-developed with [**Martial-Gautam**](https://github.com/Martial-Gautam). Analysis, documentation, teaching material, notebook,
 diagrams and pitch deck by [**gitswagata1**](https://github.com/gitswagata1).
 
 Every number in this repository comes from the team's logs ([`logs/`](logs/)). Anything we could not verify is

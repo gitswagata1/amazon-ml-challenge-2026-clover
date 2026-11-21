@@ -7,7 +7,7 @@
   <img alt="CV US+India" src="https://img.shields.io/badge/CV%20US%2BIndia-0.98921-2F5E5E?style=flat-square">
   <img alt="candidate recall" src="https://img.shields.io/badge/candidate%20recall-99.2%25-588B8B?style=flat-square">
   <img alt="candidates" src="https://img.shields.io/badge/candidates-~25%20per%20business-588B8B?style=flat-square">
-  <img alt="rank" src="https://img.shields.io/badge/rank-Top%20500-C8553D?style=flat-square">
+  <img alt="rank" src="https://img.shields.io/badge/rank-Top%20500%20of%2032k%2B%20teams-C8553D?style=flat-square">
   <img alt="external data" src="https://img.shields.io/badge/external%20data-none-5A7373?style=flat-square">
   <br>
   <a href="https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
@@ -54,6 +54,11 @@ Amazon gave us business records from **three independent sources** describing th
 | 2 | SHARMA TRADERS PVT LTD | 12 M.G. Rd, Bangalore |
 | 3 | शर्मा ट्रेडर्स | Near SBI ATM, MG Road, 560038 |
 | 3 | Sharma Trading Services | 14 MG Road, Bengaluru *(a different business next door)* |
+
+**The competition.** Amazon ML Challenge 2026 drew **89,000+ registrations** and **32,000+ teams**, who had
+**72 hours** (25–27 September 2026) to build a solution. Amazon describes it as a problem its own scientists work on.
+Beyond the leaderboard, entries were checked for plagiarism and through manual review of approach notes and code, and
+about 103 teams were disqualified.
 
 **Task.** For each of the **1,732,544** Source 1 businesses in the test set, list every matching record among the
 **9.97 M** records of Sources 2 and 3. A business can have zero, one or many matches.
@@ -173,6 +178,7 @@ Every stage, model, setting and trade-off: **[TECHNICAL.md](TECHNICAL.md)**
 | Measure | Result |
 |---|---|
 | Public leaderboard (macro F0.5) | **0.986691** · Top 500 nationally |
+| Field | 32,000+ teams from 89,000+ registrations, 72 hours |
 | Cross-validated, US + India | 0.98921 |
 | Leaderboard split (diagnostic upload) | **US/India 0.9897** · **France 0.9673** |
 | Candidate recall · candidates per business | 99.2 % · ~25 (43.9 M test pairs) |

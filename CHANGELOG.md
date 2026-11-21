@@ -6,6 +6,7 @@
   address quirks), consonant skeletons across scripts, legal-word removal, house-number keys, blocking-key
   families and feature helpers. They run on every push alongside the examples.
 - README badges render as images; credits line trimmed.
+- Competition scale from Amazon's results email: 32,000+ teams, 89,000+ registrations, about 103 teams disqualified.
 
 ## 2026-11-20 · One self-contained repository
 

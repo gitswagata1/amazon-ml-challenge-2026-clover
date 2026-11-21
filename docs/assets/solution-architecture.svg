@@ -102,7 +102,7 @@
 <text x="1635" y="732" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#5A7373">confident pairs keep their LightGBM score (about 42 M of 43.9 M skip the transformer)</text>
 <rect x="60" y="790" width="2120" height="130" rx="22" fill="#EEF4F4"/>
 <text x="272" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#234646">0.9867</text>
-<text x="272" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">public leaderboard · Top 500</text>
+<text x="272" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">public LB · final rank 390</text>
 <text x="696" y="852" text-anchor="middle" font-family="'Libre Bodoni', Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#2F5E5E">0.98921</text>
 <text x="696" y="888" text-anchor="middle" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#5A7373">cross-validated, US + India</text>
 <line x1="484" y1="818" x2="484" y2="892" stroke="#D6E5E5" stroke-width="2"/>

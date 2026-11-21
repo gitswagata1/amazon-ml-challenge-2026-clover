@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/social-preview.png" alt="Business Entity Resolution at Scale: Amazon ML Challenge 2026, Team Amizon. Top 500 nationally, public leaderboard 0.9867, 99.2 % candidate recall." width="100%">
+  <img src="docs/assets/social-preview.png" alt="Business Entity Resolution at Scale: Amazon ML Challenge 2026, Team Amizon. Final rank 390 of 32,000+ teams, public leaderboard 0.9867, 99.2 % candidate recall." width="100%">
 </p>
 
 <p align="center">

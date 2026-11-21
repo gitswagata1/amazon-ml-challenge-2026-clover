@@ -1079,7 +1079,7 @@ If we had another week, in this order:
 
 To keep the picture fair: the leaderboard-to-CV agreement on US/India (0.9897 vs 0.98921) shows unusually careful
 validation. The documented rejection list, the per-country probes and the reproducible one-command pipeline are the
-habits of a strong ML team, not a lucky one. Going from **~1,069th** after v7 to a **final rank of 390** (Top 500) within the same 72 hours
+habits of a strong ML team, not a lucky one. Going from **~1,069th** after v7 to the **Top 500** within the same 72 hours
 came from method, not from guessing.
 
 ### Unknowns

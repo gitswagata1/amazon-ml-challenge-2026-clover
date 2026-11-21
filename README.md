@@ -3,12 +3,12 @@
 </p>
 
 <p align="center">
-  ![public LB](https://img.shields.io/badge/public%20LB-0.986691-234646?style=flat-square)
-  ![CV US+India](https://img.shields.io/badge/CV%20US+India-0.98921-2F5E5E?style=flat-square)
-  ![candidate recall](https://img.shields.io/badge/candidate%20recall-99.2%2520%25-588B8B?style=flat-square)
-  ![candidates](https://img.shields.io/badge/candidates-~25%2520per%2520business-588B8B?style=flat-square)
-  ![rank](https://img.shields.io/badge/rank-Top%2520500-C8553D?style=flat-square)
-  ![external data](https://img.shields.io/badge/external%20data-none-5A7373?style=flat-square)
+  <img alt="public LB" src="https://img.shields.io/badge/public%20LB-0.986691-234646?style=flat-square">
+  <img alt="CV US+India" src="https://img.shields.io/badge/CV%20US%2BIndia-0.98921-2F5E5E?style=flat-square">
+  <img alt="candidate recall" src="https://img.shields.io/badge/candidate%20recall-99.2%25-588B8B?style=flat-square">
+  <img alt="candidates" src="https://img.shields.io/badge/candidates-~25%20per%20business-588B8B?style=flat-square">
+  <img alt="rank" src="https://img.shields.io/badge/rank-Top%20500-C8553D?style=flat-square">
+  <img alt="external data" src="https://img.shields.io/badge/external%20data-none-5A7373?style=flat-square">
   <br>
   <a href="https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
   <a href="https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml"><img src="https://github.com/gitswagata1/amazon-ml-challenge-2026-clover/actions/workflows/examples.yml/badge.svg" alt="examples"></a>

@@ -7,7 +7,7 @@
   <img alt="CV US+India" src="https://img.shields.io/badge/CV%20US%2BIndia-0.98921-2F5E5E?style=flat-square">
   <img alt="candidate recall" src="https://img.shields.io/badge/candidate%20recall-99.2%25-588B8B?style=flat-square">
   <img alt="candidates" src="https://img.shields.io/badge/candidates-~25%20per%20business-588B8B?style=flat-square">
-  <img alt="rank" src="https://img.shields.io/badge/rank-Top%20500%20of%2032k%2B%20teams-C8553D?style=flat-square">
+  <img alt="rank" src="https://img.shields.io/badge/final%20rank-390%20of%2032k%2B%20teams-C8553D?style=flat-square">
   <img alt="external data" src="https://img.shields.io/badge/external%20data-none-5A7373?style=flat-square">
   <br>
   <a href="https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
@@ -177,7 +177,8 @@ Every stage, model, setting and trade-off: **[TECHNICAL.md](TECHNICAL.md)**
 
 | Measure | Result |
 |---|---|
-| Public leaderboard (macro F0.5) | **0.986691** · Top 500 nationally |
+| Final rank | **390** of 32,000+ teams (Top 500) |
+| Public leaderboard (macro F0.5) | **0.986691** |
 | Field | 32,000+ teams from 89,000+ registrations, 72 hours |
 | Cross-validated, US + India | 0.98921 |
 | Leaderboard split (diagnostic upload) | **US/India 0.9897** · **France 0.9673** |

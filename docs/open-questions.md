@@ -6,8 +6,8 @@ appear.
 
 | # | Missing | Why it matters | Where it would come from |
 |---|---|---|---|
-| 1 | **Private leaderboard score and final rank** | The final ranking used the private split; several French choices were tuned on the public split | Competition portal / Unstop results page |
-| 2 | **Exact "Top 500" rank** | The README states Top 500 as reported by the team; the logs only record ~1,069th after v7 | Unstop results page (login needed). Field size confirmed by Amazon's results email: 32,000+ teams, 89,000+ registrations |
+| 1 | **Private leaderboard score** (final rank resolved: **390**, per the team's competition repo) | The final ranking used the private split; several French choices were tuned on the public split | Competition portal / Unstop results page |
+| 2 | **Resolved: final rank 390** | The logs only record ~1,069th after v7; the team's competition repo (Martial-Gautam/Amazon-ML-Challenge-2026) states final rank 390 | Unstop results page (login needed). Field size confirmed by Amazon's results email: 32,000+ teams, 89,000+ registrations |
 | 3 | **The last three uploads (0.986525 → 0.986691)** | They appear in the final package README but not in [`logs/submissions.md`](../logs/submissions.md), which ends at 0.986371 | Portal history or the team |
 | 4 | **Is the profiled `matching_results.tsv` the 0.986691 file?** | [the data guide](data.md)'s profile (5,797,017 links) is of the file provided to us; the logs don't record the final file's link count | A checksum of the uploaded file |
 | 5 | **Country breakdown of the submission** | Needs `test_source1.tsv` to join countries | The competition data (not redistributable) |

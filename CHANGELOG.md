@@ -7,6 +7,7 @@
   families and feature helpers. They run on every push alongside the examples.
 - README badges render as images; credits line trimmed.
 - Competition scale from Amazon's results email: 32,000+ teams, 89,000+ registrations, about 103 teams disqualified.
+- Final rank 390 added (badge, results table, deep dive).
 
 ## 2026-11-20 · One self-contained repository
 

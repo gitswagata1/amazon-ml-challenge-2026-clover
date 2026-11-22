@@ -202,16 +202,27 @@ look-alikes. [TECHNICAL §8](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-hig
 
 ## 8. My role
 
-I was part of Team Amizon end to end, from the first read of the problem statement to the final submission.
+I worked on this end to end as part of Team Amizon, from reading the problem statement to the final submission,
+and then turned the work into this repository.
 
-- **Understanding the problem.** Reading the data across three sources and three countries, and working out
-  why France, with no training labels, needed its own treatment.
-- **Building the pipeline.** Candidate search (blocking), the feature set, the LightGBM matcher, the cross-encoders
-  and the final one-to-one decision step.
-- **Experiments and decisions.** Running and comparing versions over the 72 hours, deciding what to keep and what
-  to drop, and tracking every upload in the [submission log](logs/submissions.md).
-- **After the competition.** Turning the work into this repository: the technical deep dive, the
-  learn-from-scratch track and notebook, the architecture diagram, the tests and the pitch deck.
+| Stage | What I worked on | Result | Evidence |
+|---|---|---|---|
+| Framing | Reading the data across 3 sources and 3 countries; seeing that France had no labels and needed its own approach | A plan that treats US/India and France separately | [The gap](#3-the-gap-why-this-is-still-hard) |
+| Candidate search | Blocking keys, fuzzy re-ranking and dense retrieval, so true matches are not lost before the model sees them | 99.2 % recall at ~25 candidates per business | [Pipeline](TECHNICAL.md#2-the-pipeline-stage-by-stage) |
+| Matching | Features, the LightGBM matcher, cross-encoders on the uncertain pairs, and the one-to-one decision step | CV 0.98921 on US + India | [Models](TECHNICAL.md#3-the-models) |
+| France without labels | Self-training on 885,573 pairs with synthetic look-alikes, plus a separate threshold | About +0.011 on France (+0.0017 overall) | [France](TECHNICAL.md#4-france-domain-adaptation-without-labels) |
+| Experiments | Running and comparing versions under a 72-hour clock; keeping only what beat a control | 29 uploads, from 0.852 to 0.987 public LB | [Journey](docs/journey.md) · [Log](logs/submissions.md) |
+| After the competition | Deep dive, learn-from-scratch track, Colab notebook, architecture diagram, 22 tests, pitch deck | A repo someone new to ML can learn from | [Start here](docs/start-here.md) |
+
+**What I took away**
+
+- **Recall comes first.** The biggest single gain (+0.020 CV) came from finding more true candidates, not from a
+  better model.
+- **Measure before you keep.** Every change was compared with a control, and changes that didn't help were dropped.
+- **Plan for missing labels.** Real data often has a market with no ground truth. France taught me to build for that
+  rather than hope it away.
+
+What I would do next with more time is in the [gap analysis](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-higher).
 
 ---
 

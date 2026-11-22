@@ -311,7 +311,7 @@ so an interrupted run resumes where it stopped. The dataset belongs to Amazon an
 
 ## 12. Credits and licence
 
-Built by **Team Amizon**: [**gitswagata1**](https://github.com/gitswagata1) and [**Martial-Gautam**](https://github.com/Martial-Gautam),
+Built by [**gitswagata1**](https://github.com/gitswagata1) and [**Martial-Gautam**](https://github.com/Martial-Gautam),
 who developed the competition pipeline together. This repository, its documentation, teaching track, notebook,
 diagrams, tests and pitch deck are by gitswagata1.
 

@@ -36,10 +36,11 @@ and documented every step so you can rebuild it from scratch.</p>
 5. [The journey](#5-the-journey)
 6. [The solution](#6-the-solution)
 7. [Results and impact](#7-results-and-impact)
-8. [Start here](#8-start-here)
-9. [Repository](#9-repository)
-10. [Reproduce the submission](#10-reproduce-the-submission)
-11. [Credits and licence](#11-credits-and-licence)
+8. [My role](#8-my-role)
+9. [Start here](#9-start-here)
+10. [Repository](#10-repository)
+11. [Reproduce the submission](#11-reproduce-the-submission)
+12. [Credits and licence](#12-credits-and-licence)
 
 ---
 
@@ -199,7 +200,22 @@ look-alikes. [TECHNICAL §8](TECHNICAL.md#8-gap-analysis-why-we-did-not-rank-hig
 
 ---
 
-## 8. Start here
+## 8. My role
+
+I was part of Team Amizon end to end, from the first read of the problem statement to the final submission.
+
+- **Understanding the problem.** Reading the data across three sources and three countries, and working out
+  why France, with no training labels, needed its own treatment.
+- **Building the pipeline.** Candidate search (blocking), the feature set, the LightGBM matcher, the cross-encoders
+  and the final one-to-one decision step.
+- **Experiments and decisions.** Running and comparing versions over the 72 hours, deciding what to keep and what
+  to drop, and tracking every upload in the [submission log](logs/submissions.md).
+- **After the competition.** Turning the work into this repository: the technical deep dive, the
+  learn-from-scratch track and notebook, the architecture diagram, the tests and the pitch deck.
+
+---
+
+## 9. Start here
 
 **No install.** Open the 6-step notebook in Colab and run it top to bottom (about 15 seconds).
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gitswagata1/amazon-ml-challenge-2026-clover/blob/main/notebooks/build_from_scratch.ipynb)
@@ -231,7 +247,7 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 
 ---
 
-## 9. Repository
+## 10. Repository
 
 ```text
 .
@@ -258,7 +274,7 @@ python examples/toy_entity_resolution.py          # data → shortlist → featu
 
 ---
 
-## 10. Reproduce the submission
+## 11. Reproduce the submission
 
 <details>
 <summary><b>Full reproduction</b> (needs the competition data, a 16 GB CUDA GPU, ~40 GB RAM, Python 3.12)</summary>
@@ -282,10 +298,11 @@ so an interrupted run resumes where it stopped. The dataset belongs to Amazon an
 
 ---
 
-## 11. Credits and licence
+## 12. Credits and licence
 
-Competition pipeline co-developed with [**Martial-Gautam**](https://github.com/Martial-Gautam). Analysis, documentation, teaching material, notebook,
-diagrams and pitch deck by [**gitswagata1**](https://github.com/gitswagata1).
+Built by **Team Amizon**: [**gitswagata1**](https://github.com/gitswagata1) and [**Martial-Gautam**](https://github.com/Martial-Gautam),
+who developed the competition pipeline together. This repository, its documentation, teaching track, notebook,
+diagrams, tests and pitch deck are by gitswagata1.
 
 Every number in this repository comes from the team's logs ([`logs/`](logs/)). Anything we could not verify is
 listed in [docs/open-questions.md](docs/open-questions.md). The official problem statement is included for reference.
